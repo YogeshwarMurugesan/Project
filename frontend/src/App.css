@@ -1,0 +1,17 @@
+.App {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: rgb(47, 61, 77);
+  }
+  
+
+  .main-content {
+    flex: 1; 
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
