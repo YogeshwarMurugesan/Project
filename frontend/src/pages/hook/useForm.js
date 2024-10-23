@@ -77,6 +77,7 @@ const useForm = (validate) => {
             }
         }
         resetForm()
+        alert('Employee Added Successfully')
     };
 
     return { handleChange, values, handleSubmit, errors };

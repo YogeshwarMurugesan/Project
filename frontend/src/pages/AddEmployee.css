@@ -1,21 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanuman:wght@100;300;400;700;900&family=Lexend:wght@100..900&family=Markazi+Text:wght@400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
-*{
-    body {
-        font-family: "Lexend", sans-serif; /* Set the font family */
-        font-optical-sizing: auto; /* Automatically adjust font for optimal readability */
-        font-weight: 400; /* Replace <weight> with a number (e.g., 400 for normal, 700 for bold) */
-        font-style: normal; /* Use normal, italic, or oblique */
-      }
-      
+body {
+    font-family: "Lexend", sans-serif;
+    /* Set the font family */
+    font-optical-sizing: auto;
+    /* Automatically adjust font for optimal readability */
+    font-weight: 400;
+    /* Replace <weight> with a number (e.g., 400 for normal, 700 for bold) */
+    font-style: normal;
+    /* Use normal, italic, or oblique */
 }
+
+
 .custom-box {
     padding: 15px;
     background-color: #f8f9fa;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
+
 }
 
 .custom-box label {
@@ -91,16 +94,64 @@
     justify-content: end;
 }
 
-#dark{
+#dark {
     background-color: rgb(27, 150, 27);
     color: black;
     padding: 12px;
+    transition: background-color 0.3s ease;
+    color: white;
+    /* Improved contrast */
+    padding: 12px;
+
 }
 
-.heading{
-    color:rgb(150, 132, 191);
+.heading {
+    color: rgb(0, 128, 128);
+    /* color:rgb(184, 134, 11) ; */
 }
 
-span{
+#heading2 {
+    color: rgb(23, 68, 84);
+    /* color:rgb(184, 134, 11) ; */
+}
+
+span {
     color: red;
+}
+
+input {
+    background-color: black;
+}
+
+.form-control {
+    border: 1px solid rgb(218, 165, 32);
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color:rgb(23, 68, 84) ;
+    color: black;
+    background-color: whitesmoke;
+                                        /* ----------> input Focus  */
+
+}
+
+.form-control {
+    border-color: rgba(0, 0, 0, 0.116);
+}
+
+.custom-box select:focus {
+    border-color: transparent;
+}
+
+.custom-box select:focus {
+    outline: none;
+    border-color: transparent;
+    box-shadow: transparent;
+}
+
+.form-select:focus {
+    border-color: transparent;
+    outline: 0;
+    box-shadow: transparent;
 }

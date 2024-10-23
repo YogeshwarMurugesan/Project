@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Employees = () => {
+
+    const [employees, setEmployee] = useState([])
+
+    useEffect(()=>{
+        axios.get('http://localhost:3001/Employees')
+        .then((res)=>{
+            setEmployee(res.data)
+        })
+        .catch((err)=>{
+            console.log(err);
+            
+        })
+    },[])
+
   return (
-    <div>
-        <h1>Employees Details</h1>
+    <div className='container'>
+        <h1 className='text-center'>Employees Details</h1>
         <table className='table table-striped'>
             <thead>
                 <tr>
@@ -11,80 +26,30 @@ const Employees = () => {
                     <th>Emp. Id</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Mobile</th>
+                    <th>Role</th>
                     <th>Department</th>
+                    <th>Work Location</th>
                     <th>Action</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>S6428</td>
-                    <td>Yoogesh</td>
-                    <td>Yogesh@gmail</td>
-                    <td>9094109595</td>
-                    <td>IT</td>
+                {employees.map((employee, index)=>(
+                    <tr key={index}>
+                    <td>{index+1}</td>
+                    <td>{employee.empid}</td>
+                    <td>{employee.name}</td>
+                    <td>{employee.email}</td>
+                    <td>{employee.jobTitle}</td>
+                    <td>{employee.department}</td>
+                    <td>{employee.workLocation}</td>
                     <td>
                         <button className='btn btn-success me-2'>Update</button>
                         <button className='btn btn-danger'>Delete</button>
                     </td>
                 </tr>
-
-
-                <tr>
-                    <td>1</td>
-                    <td>S6428</td>
-                    <td>Yoogesh</td>
-                    <td>Yogesh@gmail</td>
-                    <td>9094109595</td>
-                    <td>IT</td>
-                    <td>
-                        <button className='btn btn-success me-2'>Update</button>
-                        <button className='btn btn-danger'>Delete</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>1</td>
-                    <td>S6428</td>
-                    <td>Yoogesh</td>
-                    <td>Yogesh@gmail</td>
-                    <td>9094109595</td>
-                    <td>IT</td>
-                    <td>
-                        <button className='btn btn-success me-2'>Update</button>
-                        <button className='btn btn-danger'>Delete</button>
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td>1</td>
-                    <td>S6428</td>
-                    <td>Yoogesh</td>
-                    <td>Yogesh@gmail</td>
-                    <td>9094109595</td>
-                    <td>IT</td>
-                    <td>
-                        <button className='btn btn-success me-2'>Update</button>
-                        <button className='btn btn-danger'>Delete</button>
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td>1</td>
-                    <td>S6428</td>
-                    <td>Yoogesh</td>
-                    <td>Yogesh@gmail</td>
-                    <td>9094109595</td>
-                    <td>IT</td>
-                    <td>
-                        <button className='btn btn-success me-2'>Update</button>
-                        <button className='btn btn-danger'>Delete</button>
-                    </td>
-                </tr>
+                ))}
+                
             </tbody>
         </table>
     </div>
