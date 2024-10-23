@@ -1,7 +1,7 @@
 const express = require('express')
-const { getEmployees } = require('../Controller/empDetailsController')
 const router = express.Router()
+const empController = require('../Controller/empDetailsController')
 
-router.get('/Employees', getEmployees)
+router.post('/api/addEmp', empController.addEmployee)
 
 module.exports = router

@@ -1,8 +1,12 @@
 const express = require('express')
-const app = express()
-const PORT = 3000
+const PORT = 3001
 const mongoose = require('mongoose')
 const empDetailsrouter = require('./Routes/empDetailsRouter') 
+const cors = require('cors')
+
+const app = express()
+app.use(express.json()) 
+
 
 mongoose.connect('mongodb://localhost:27017/Project')
 .then(() => {
@@ -11,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/Project')
     console.log('mongoose is not connected')
 });
 
+app.use(cors())
 app.use(empDetailsrouter)
 
 app.listen(PORT, ()=>{

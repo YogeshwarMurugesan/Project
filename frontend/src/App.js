@@ -12,7 +12,7 @@ function App() {
         <Sidebar /> {/* Sidebar remains fixed on the left */}
         <div className="main-content"> {/* Main content area for displaying routes */}
           <Routes>
-            <Route path="/Add" element={<AddEmployee />} />
+            <Route path="api/addEmp" element={<AddEmployee />} />
             <Route path="/Employees" element={<Employees />} />
           </Routes>
         </div>

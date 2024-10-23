@@ -26,7 +26,7 @@ export const sideBarData = [
     {
         title: "Add Empoloyee",
         icon: <AddIcon />,
-        link: "/Add"
+        link: "/api/addEmp"
     },
 
     {
