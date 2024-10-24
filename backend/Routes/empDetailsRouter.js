@@ -6,4 +6,6 @@ router.post('/api/addEmp', empController.addEmployee)
 
 router.get('/Employees' , empController.getEmployee)
 
+router.get('/viewProfile/:email', empController.getEmployeeByEmail)
+
 module.exports = router

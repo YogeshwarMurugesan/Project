@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Sidebar from './Componends/Sidebar';
 import AddEmployee from './pages/AddEmployee';
 import Employees from './pages/Employees';
+import Profile from './pages/Profile';
+import FullProfile from './pages/FullProfile';
+
 
 
 function App() {
@@ -14,6 +17,8 @@ function App() {
           <Routes>
             <Route path="api/addEmp" element={<AddEmployee />} />
             <Route path="/Employees" element={<Employees />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/viewProfile/:email" element={<FullProfile />} /> {/* Add the ViewProfile route */}
           </Routes>
         </div>
       </div>
