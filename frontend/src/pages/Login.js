@@ -6,13 +6,45 @@ import LockIcon from '@mui/icons-material/Lock';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import axios from 'axios'
 
-const Login = () => {
-    const [isLoginView, setIsLoginView] = useState(true);
+
+
+
+const Login = (onLogIn) => {
+    const [isLoginView, setIsLoginView] = useState(false);
+
+    const [registerData, setRegisterData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    })
+
 
     const toggleView = () => {
         setIsLoginView(!isLoginView);
     };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+
+        setRegisterData({
+            ...registerData,
+            [name]: value
+        })
+    }
+
+    const handleRegisterSubmit =async (e)=>{
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3001',registerData )
+            alert('Register Successfully')
+            onLogIn()
+        } catch (error) {
+            alert(error)
+        }
+
+    }
 
     return (
         <div className="container login-page">
@@ -58,6 +90,7 @@ const Login = () => {
                             ) : (
                                 // Sign Up Form
                                 <>
+                                <form action="" onSubmit={handleRegisterSubmit}>
                                     <h1>Create Account</h1>
                                     <div className="social-icons">
                                         <FacebookIcon className="social-icon" />
@@ -67,18 +100,19 @@ const Login = () => {
                                     <p>or use your email for registration:</p>
                                     <div className="input-container">
                                         <PersonIcon className="input-icon" />
-                                        <input type="text" className="form-control" placeholder="Name" />
+                                        <input type="text" name='name' className="form-control" placeholder="Name" value={registerData.name} onChange={handleChange} />
                                     </div>
                                     <div className="input-container">
                                         <EmailIcon className="input-icon" />
-                                        <input type="email" className="form-control" placeholder="Email" />
+                                        <input type="email" name='email' className="form-control" placeholder="Email" value={registerData.email }  onChange={handleChange}/>
                                     </div>
                                     <div className="input-container">
                                         <LockIcon className="input-icon" />
-                                        <input type="password" className="form-control" placeholder="Password" />
+                                        <input type="password" name='password' className="form-control" placeholder="Password" value={registerData.password } onChange= {handleChange} />
                                     </div>
                                     <button className="btn sign-up-btn">SIGN UP</button>
                                     <p>Already have an account? <span className="toggle-link" onClick={toggleView}>Login</span></p>
+                                    </form>
                                 </>
                             )}
                         </div>
