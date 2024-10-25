@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanuman:wght@100;300;400;700;900&family=Lexend:wght@100..900&family=Markazi+Text:wght@400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
-body {
+ body {
     font-family: "Lexend", sans-serif;
     /* Set the font family */
     font-optical-sizing: auto;
@@ -111,8 +111,9 @@ body {
 }
 
 #heading2 {
-    color: rgb(23, 68, 84);
+    color: #2b6cb0;
     /* color:rgb(184, 134, 11) ; */
+    display: flex;
 }
 
 span {

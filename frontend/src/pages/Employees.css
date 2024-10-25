@@ -1,18 +1,99 @@
-.border {
-    border: 2px solid black;
-    border-radius: 10px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-    padding: 2px;
-    padding-left: 5px;
-    background-color: whitesmoke;
+/* General Styling */
+.employees-page body {
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-.email{
+.employees-page .container {
+    padding: 40px;
+}
+
+h1, h2 {
+    font-weight: 700;
+    color: #333;
+}
+
+/* Card Design */
+.employees-page .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.employees-page .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Content */
+.employees-page .card-body {
+    padding: 20px;
+}
+
+.employees-page .card-title {
+    font-size: 1.5rem;
+    color: #2b6cb0;
+    margin-bottom: 5px;
+}
+
+.employees-page .card-subtitle {
+    font-size: 1rem;
+    color: #718096;
+}
+
+.employees-page .card-text {
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+
+/* Button Styling */
+.employees-page .btn {
+    background-color: rgb(0, 128, 128);
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.employees-page .btn:hover {
+    background-color: #2b6cb0;
+    color: #fff;
+}
+
+/* Links */
+.employees-page .card-link {
+    color: #3182ce;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.employees-page .card-link:hover {
+    color: #2b6cb0;
+    text-decoration: underline;
+}
+
+/* Contact Info */
+.employees-page .email, .phone {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    font-size: 1rem;
+    margin: 10px 0;
 }
 
-.card{
-    background-color: rgb(238, 239, 240);
-    padding: 5px;
+.employees-page .email svg, .phone svg {
+    margin-right: 5px;
+    color: #3182ce;
+}
+
+/* Border */
+.employees-page .border {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background-color: #f7fafc;
+    padding: 15px;
 }

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion'; // Import the motion component
 import './AddEmployee.css';
 import useForm from './hook/useForm';
 import validate from './utils/validate';
 
 const AddEmployee = () => {
-
-  const { handleChange, values, handleSubmit, errors } = useForm(validate)
-
+  const { handleChange, values, handleSubmit, errors } = useForm(validate);
   const [active, setActive] = useState('personal');
 
   const handleClick = (state) => {
@@ -15,9 +14,9 @@ const AddEmployee = () => {
 
   return (
     <>
-      <h1 className='text-center mb-3 heading' >Add New Employee</h1>
+      <h1 className='text-center mb-3 heading'>Add New Employee</h1>
 
-      <div className="container showpices">
+      <div className="-page container showpices">
         <ul>
           <button className='btn btn-success' id={active === 'personal' ? 'dark' : ''} onClick={() => handleClick('personal')}>Personal Information</button>
         </ul>
@@ -31,9 +30,14 @@ const AddEmployee = () => {
 
       <div className='container custom-box mt-2 p-5'>
         <form className='form' onSubmit={handleSubmit}>
-
           {/* Personal Information Section */}
-          {active === 'personal' ? (
+          {active === 'personal' && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
               <div className='row'>
                 <h4 className='text-center heading'>Personal Information</h4>
                 <div className="col col-lg-12 mt-3">
@@ -41,11 +45,11 @@ const AddEmployee = () => {
                 </div>
                 <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
                   <label htmlFor="" className='form-label' id='heading2'>Full Name</label>
-                  <input type="text" className='form-control' placeholder='Enter The Name ' name='name' onChange={handleChange} value={values.name} />
+                  <input type="text" className='form-control' placeholder='Enter The Name' name='name' onChange={handleChange} value={values.name} />
                   {errors.name && <span>{errors.name}</span>}
                 </div>
                 <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
-                  <label htmlFor="" className='form-label' id='heading2' >Employee ID</label>
+                  <label htmlFor="" className='form-label' id='heading2'>Employee ID</label>
                   <input type="text" className='form-control' placeholder='Enter Employee ID' name='empid' onChange={handleChange} value={values.empid} />
                   {errors.empid && <span>{errors.empid}</span>}
                 </div>
@@ -74,19 +78,25 @@ const AddEmployee = () => {
                   {errors.gender && <span>{errors.gender}</span>}
                 </div>
                 <div className='nbtn'>
-                  <button className='btn btn-warning' type="button" onClick={() => handleClick('job') } >Next</button>
+                  <button className='btn btn-warning' type="button" onClick={() => handleClick('job')}>Next</button>
                 </div>
               </div>
-          
-          ) : active === 'job' ? (
-          
-              <div className='row'>
+            </motion.div>
+          )}
 
+          {active === 'job' && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className='row'>
                 {/* Job Information Section */}
                 <h4 className='text-center heading'>Job Details</h4>
                 <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
                   <label htmlFor="" className='form-label' id='heading2'>Job Title</label>
-                  <input type="text" className='form-control' placeholder='Enter Job Title ' name='jobTitle' onChange={handleChange} value={values.jobTitle} />
+                  <input type="text" className='form-control' placeholder='Enter Job Title' name='jobTitle' onChange={handleChange} value={values.jobTitle} />
                   {errors.jobTitle && <span>{errors.jobTitle}</span>}
                 </div>
                 <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
@@ -115,23 +125,28 @@ const AddEmployee = () => {
                 </div>
                 <div className='nbtn'>
                   <button className='btn btn-danger me-2' type="button" onClick={() => handleClick('personal')}>Previous</button>
-                  <span className='btn btn-warning' type="button" onClick={() => handleClick('address')}>Next</span>
+                  <button className='btn btn-warning' type="button" onClick={() => handleClick('address')}>Next</button>
                 </div>
               </div>
-  
-          ) : active === 'address' ? (
-           
-              <div className='row'>
+            </motion.div>
+          )}
 
-                {/* Address Information Section */}
-                <h4 className='text-center heading' id='heading2'>Address Information</h4>
+          {active === 'address' && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className='row'>
+                <h4 className='text-center heading'>Address Details</h4>
                 <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
-                  <label htmlFor="" className='form-label' id='heading2'>Residential Address</label>
-                  <input type="text" className='form-control' placeholder='Enter Residential Address' name='address' onChange={handleChange} value={values.address} />
+                  <label htmlFor="" className='form-label' id='heading2'>Address</label>
+                  <input type="text" className='form-control' placeholder='Enter Address' name='address' onChange={handleChange} value={values.address} />
                   {errors.address && <span>{errors.address}</span>}
                 </div>
                 <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
-                  <label htmlFor="" className='form-label' id='heading2'>City </label>
+                  <label htmlFor="" className='form-label' id='heading2'>City</label>
                   <input type="text" className='form-control' placeholder='Enter City Name' name='city' onChange={handleChange} value={values.city} />
                   {errors.city && <span>{errors.city}</span>}
                 </div>
@@ -141,34 +156,22 @@ const AddEmployee = () => {
                   {errors.state && <span>{errors.state}</span>}
                 </div>
                 <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
-                  <label htmlFor="" className='form-label' id='heading2'>Postal Code</label>
-                  <input type="text" className='form-control' placeholder='Enter Postal Code' name='pinCode' onChange={handleChange} value={values.pinCode} />
-                  {errors.pinCode && <span>{errors.pinCode}</span>}
+                  <label htmlFor="" className='form-label' id='heading2'>Country</label>
+                  <input type="text" className='form-control' placeholder='Enter Country Name' name='country' onChange={handleChange} value={values.country} />
+                  {errors.country && <span>{errors.country}</span>}
                 </div>
-                {/*
-{Object.values(errors).length > 0 && (
-  <div className="error-messages">
-    {Object.values(errors).map((error, index) => (
-      <p key={index} className="text-danger mt-3">{error}</p>
-    ))}
-  </div>
-)} */}
-
-                {Object.values(errors).length > 0 && (
-                  <div className="error-messages text-danger">PLease Verifed All inputs</div>
-                )}
-
-
+                <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
+                  <label htmlFor="" className='form-label' id='heading2'>Zip Code</label>
+                  <input type="text" className='form-control' placeholder='Enter Zip Code' name='zip' onChange={handleChange} value={values.zip} />
+                  {errors.zip && <span>{errors.zip}</span>}
+                </div>
                 <div className='nbtn'>
-
                   <button className='btn btn-danger me-2' type="button" onClick={() => handleClick('job')}>Previous</button>
-
-                  <button className='btn btn-success me-2' type="submit">Save</button>
-                  {/* <input type="submit" className='btn btn-success me-2' /> */}
+                  <button className='btn btn-success' type="submit">Add Employee</button>
                 </div>
               </div>
-        
-          ) : null}
+            </motion.div>
+          )}
         </form>
       </div>
     </>

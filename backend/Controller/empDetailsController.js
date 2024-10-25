@@ -3,7 +3,7 @@ const employeeSchema = require('../Schema/employeeSchema')
 exports.addEmployee = async (req, res) => {
 
    try {
-      const { 
+      const {
          name,
          empid,
          email,
@@ -115,3 +115,21 @@ exports.updateUser = async (req, res) => {
       res.status(404).json(error)
    }
 };
+
+exports.deleteEmployee = async (req,res) => {
+   try {
+      const { email } = req.params
+
+      const findUser = await employeeSchema.findOneAndDelete({email})
+
+      if (!findUser) {
+         console.log('user is not found')
+      }
+
+      res.status(201).json(findUser + 'deleted')
+   } catch (error) {
+      res.status(404).json(error)
+   }
+
+
+}

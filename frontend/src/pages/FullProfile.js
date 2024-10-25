@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './FullProfile.css'
 
@@ -7,6 +7,7 @@ const FullProfile = () => {
     const { email } = useParams();
     const [employee, setEmployee] = useState(null);
     const [isEditable, setIsisEditable] = useState(false)
+    const navigate = useNavigate()
 
 
     // View Employee
@@ -36,7 +37,6 @@ const FullProfile = () => {
             [name]: value
         })
         )
-
     }
 
 
@@ -49,17 +49,29 @@ const FullProfile = () => {
     const handleSave = () => {
         axios.put(`http://localhost:3001/viewProfile/${email}`, employee)
             .then((result) => {
-                console.log('User Updated Successfully')
+                alert('User Updated Success Fully')
                 setIsisEditable(false)
             }).catch((err) => {
                 console.log(err)
             });
     }
 
+    const handleDelete = ()=>{
+        axios.delete(`http://localhost:3001/viewProfile/${email}`)
+        .then((result) => {
+            alert('User Deleted Success Fully')
+            setIsisEditable(false)
+            navigate('/Employees')
+        }).catch((err) => {
+            console.log(err)
+        });
+
+    }
+
     return (
         <div className="container">
 
-            <h1>{employee.name}'s Profile</h1>
+            <h1 className='heading'>{employee.name}'s Profile</h1>
 
             <table className='table table-bordered'>
                 <thead>
@@ -308,8 +320,9 @@ const FullProfile = () => {
                 <button
                     type='button'
                     className='btn btn-danger'
+                    onClick={handleDelete}
                 >
-                    Delete
+                    {isEditable ? 'Cancel' : 'Delete'}
                 </button>
             </div>
 

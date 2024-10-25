@@ -22,8 +22,8 @@ const Employees = () => {
     }, [])
 
     return (
-        <div className='container'>
-            <h1 className='text-center'>Employees Details</h1>
+        <div className='employees-page container'>
+            <h1 className='text-center heading'>Employees Details</h1>
             <h2 className='text-center mb-5'>{employees.length} Employees</h2>
             <div className="container">
                 <div className="row">
@@ -34,16 +34,11 @@ const Employees = () => {
 
                                     <div className="row">
 
-                                        <div className="col col-lg-6 col-md-12">
+                                        <div className="col col-lg-12">
                                             <h5 className="card-title">{employee.name}</h5>
                                             <h6 className="card-subtitle mb-2 text-body-secondary">{employee.jobTitle}</h6>
                                         </div>
 
-                                        <div className="col col-lg-6 col-md-12">
-                                            <Link to={`/viewProfile/${employee.email}`}>
-                                                <button className='btn btn-secondary'>View Full Profile</button>
-                                            </Link>
-                                        </div>
 
                                     </div>
 
@@ -60,9 +55,20 @@ const Employees = () => {
                                         <div className='row mt-4 email'>
                                             <Link to={`/employee/${employee.id}`} className="card-link mb-3"><span className='me-2 text-primary'><EmailIcon /></span>{employee.email}</Link><br />
                                         </div>
-                                        <div>
-                                            <span className='me-2 text-primary'><LocalPhoneIcon /></span>
-                                            {employee.phNo}
+
+                                        <div className='row'>
+                                            <div className="col col-lg-6 col-md-12">
+                                                <span className='me-2 text-primary'><LocalPhoneIcon /></span>
+                                                {employee.phNo}
+                                            </div>
+
+
+                                            <div className="col col-lg-6 col-md-12">
+                                                <Link to={`/viewProfile/${employee.email}`}>
+                                                    <button className='btn btn-secondary'>Full Profile</button>
+                                                </Link>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
