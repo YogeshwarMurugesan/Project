@@ -12,7 +12,7 @@ import Login from './pages/Login';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const handleLogIn = ()=>{
     setIsLoggedIn(!isLoggedIn)
@@ -23,7 +23,7 @@ function App() {
       <div className="App">
         {isLoggedIn ? (<>
           <Sidebar /> {/* Sidebar remains fixed on the left */}
-          <div className="main-content"> {/* Main content area for displaying routes */}
+          <div className="main-content"> {/* Main content area for displaying routes */}  
             <Routes>
               <Route path="api/addEmp" element={<AddEmployee />} />
               <Route path="/Employees" element={<Employees />} />
