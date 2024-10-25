@@ -8,7 +8,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Login = () => {
-    const [isLoginView, setIsLoginView] = useState(false);
+    const [isLoginView, setIsLoginView] = useState(true);
 
     const toggleView = () => {
         setIsLoginView(!isLoginView);
