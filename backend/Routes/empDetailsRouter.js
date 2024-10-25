@@ -8,4 +8,6 @@ router.get('/Employees' , empController.getEmployee)
 
 router.get('/viewProfile/:email', empController.getEmployeeByEmail)
 
+router.put('/viewProfile/:email', empController.updateUser)
+
 module.exports = router

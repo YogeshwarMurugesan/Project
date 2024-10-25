@@ -5,6 +5,7 @@ import AddEmployee from './pages/AddEmployee';
 import Employees from './pages/Employees';
 import Profile from './pages/Profile';
 import FullProfile from './pages/FullProfile';
+import Dashboard from './pages/Dashboard';
 
 
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/Employees" element={<Employees />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/viewProfile/:email" element={<FullProfile />} /> {/* Add the ViewProfile route */}
+            <Route path='/Dashboard' element={<Dashboard/>}/>
           </Routes>
         </div>
       </div>

@@ -22,8 +22,8 @@ const Employees = () => {
     }, [])
 
     return (
-        <div classNameName='container'>
-            <h1 classNameName='text-center'>Employees Details</h1>
+        <div className='container'>
+            <h1 className='text-center'>Employees Details</h1>
             <h2 className='text-center mb-5'>{employees.length} Employees</h2>
             <div className="container">
                 <div className="row">
