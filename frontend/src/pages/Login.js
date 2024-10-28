@@ -7,12 +7,14 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import axios from 'axios'
+import { useAuth } from '../context/authcontext';
+import { useNavigate } from 'react-router-dom';
 
 
-
-
-const Login = (onLogIn) => {
+const Login = ({onLogIn}) => {
     const [isLoginView, setIsLoginView] = useState(false);
+    const {user, Login} = useAuth()
+    const navigate = useNavigate()
 
     const [registerData, setRegisterData] = useState({
         name: '',
@@ -39,7 +41,9 @@ const Login = (onLogIn) => {
         try {
             const response = await axios.post('http://localhost:3001',registerData )
             alert('Register Successfully')
-            onLogIn()
+            const token = localStorage.setItem('token', JSON.stringify(registerData))
+            Login()
+            navigate('/Dashboard')
         } catch (error) {
             alert(error)
         }

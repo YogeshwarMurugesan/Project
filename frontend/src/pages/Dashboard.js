@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useAuth } from '../context/authcontext';
 
 const SmallCalendar = () => {
     const [selectedDate, setSelectedDate] = useState(null);
+    const {user, loading} = useAuth()
+
+    if(loading){
+        return (
+            <h1>Loading...</h1>
+        )
+    }
+    console.log(user.name)
     const holidays = [
         new Date(2024, 0, 26),   // Republic Day (January 26)
         new Date(2024, 3, 10),   // Ugadi (April 10)

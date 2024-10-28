@@ -1,0 +1,16 @@
+.Leave-inputs input{
+    background-color: transparent;
+}
+
+.Leave-inputs label{
+    display: flex;
+}
+
+.highlight-custom {
+    background-color: red; /* Change to desired color for leave days */
+    color: white; /* Text color for visibility */
+    border-radius: 50%; /* Optional: Make it circular */
+  }
+  
+  
+  

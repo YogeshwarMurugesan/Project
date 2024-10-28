@@ -1,6 +1,6 @@
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import PersonIcon from '@mui/icons-material/Person';
+import TimeToLeaveIcon from '@mui/icons-material/TimeToLeave';
 import AddIcon from '@mui/icons-material/Add';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -18,8 +18,8 @@ export const sideBarData = [
     },
 
     {
-        title: "View Profile",
-        icon: <PersonIcon />,
+        title: "Apply Leave",
+        icon: <TimeToLeaveIcon />,
         link: "/Profile"
     },
 

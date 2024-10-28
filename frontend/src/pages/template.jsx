@@ -1,172 +1,126 @@
 import React, { useState } from 'react';
-import './Login.css';
-import PersonIcon from '@mui/icons-material/Person';
-import EmailIcon from '@mui/icons-material/Email';
-import LockIcon from '@mui/icons-material/Lock';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import GoogleIcon from '@mui/icons-material/Google';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import axios from 'axios';
+import './Profile.css';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
-const Login = () => {
-    const [isLoginView, setIsLoginView] = useState(false);
+const Profile = () => {
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [leaveType, setLeaveType] = useState('fullDay'); // Default leave type
+  const [leaveBalance, setLeaveBalance] = useState(2); // Initial leave balance
+  const [leaveDays, setLeaveDays] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
 
-    const [registerData, setRegisterData] = useState({
-        name: '',
-        email: '',
-        password: ''
-    });
+  const handleChangeStart = (e) => {
+    setStartDate(e.target.value);
+  };
 
-    const [loginData, setLoginData] = useState({
-        email: '',
-        password: ''
-    });
+  const handleChangeEnd = (e) => {
+    setEndDate(e.target.value);
+  };
 
-    const toggleView = () => {
-        setIsLoginView(!isLoginView);
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const timeDifference = end - start;
+    const dayDifference = Math.ceil(timeDifference / (1000 * 3600 * 24)) + 1; // Calculate the number of days including start and end date
+    let finalDeduction = dayDifference;
 
-    const handleRegisterChange = (e) => {
-        const { name, value } = e.target;
-        setRegisterData({
-            ...registerData,
-            [name]: value
-        });
-    };
+    // If it's a single-day leave, apply either 1 (full-day) or 0.5 (half-day) deduction
+    if (dayDifference === 1) {
+      finalDeduction = leaveType === 'fullDay' ? 1 : 0.5;
+    }
 
-    const handleLoginChange = (e) => {
-        const { name, value } = e.target;
-        setLoginData({
-            ...loginData,
-            [name]: value
-        });
-    };
+    // Ensure leave balance cannot go negative
+    if (leaveBalance >= finalDeduction) {
+      setLeaveBalance(prevBalance => prevBalance - finalDeduction);
 
-    const handleRegisterSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:3001/auth', registerData);
-            alert(response.data);
-            // Optionally, reset the form or toggle to login view
-        } catch (error) {
-            console.error(error);
-            alert(error.response.data || 'An error occurred during registration.');
-        }
-    };
+      // Store each leave day
+      const leaveDates = [];
+      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        leaveDates.push(new Date(d));
+      }
+      setLeaveDays(prevDays => [...prevDays, ...leaveDates]);
 
-    const handleLoginSubmit = async (e) => {
-        e.preventDefault();
-        // Implement login functionality similarly to registration
-    };
+      // Reset inputs
+      setStartDate('');
+      setEndDate('');
+      setLeaveType('fullDay');
+    } else {
+      alert("Insufficient leave balance");
+    }
+  };
 
-    return (
-        <div className="container login-page">
-            <div className="row justify-content-center align-items-center">
-                <div className={`col-lg-6 col-md-8 col-sm-12 container-box ${isLoginView ? 'login-active' : ''}`}>
-                    <div className="left-box">
-                        {isLoginView ? (
-                            <div className="content">
-                                <h1>Hello!</h1>
-                                <p>To get started on this journey, create your account with us!</p>
-                                <button className="btn sign-in-btn" onClick={toggleView}>SIGN UP</button>
-                            </div>
-                        ) : (
-                            <div className="content">
-                                <h1>Welcome Back!</h1>
-                                <p>To keep connected with us please login with your personal info</p>
-                                <button className="btn sign-in-btn" onClick={toggleView}>LOG IN</button>
-                            </div>
-                        )}
-                    </div>
+  const handleLeaveType = (e) => {
+    setLeaveType(e.target.value);
+  };
 
-                    <div className="right-box">
-                        <div className="content">
-                            {isLoginView ? (
-                                // Login Form
-                                <>
-                                    <h1>Login</h1>
-                                    <form onSubmit={handleLoginSubmit}>
-                                        <div className="input-container">
-                                            <EmailIcon className="input-icon" />
-                                            <input
-                                                type="email"
-                                                name="email"
-                                                className="form-control"
-                                                placeholder="Email"
-                                                value={loginData.email}
-                                                onChange={handleLoginChange}
-                                            />
-                                        </div>
-                                        <div className="input-container">
-                                            <LockIcon className="input-icon" />
-                                            <input
-                                                type="password"
-                                                name="password"
-                                                className="form-control"
-                                                placeholder="Password"
-                                                value={loginData.password}
-                                                onChange={handleLoginChange}
-                                            />
-                                        </div>
-                                        <button className="btn sign-up-btn" type="submit">LOGIN</button>
-                                        <p>Don’t have an account? <span className="toggle-link" onClick={toggleView}>Sign Up</span></p>
-                                    </form>
-                                </>
-                            ) : (
-                                // Sign Up Form
-                                <>
-                                    <h1>Create Account</h1>
-                                    <div className="social-icons">
-                                        <FacebookIcon className="social-icon" />
-                                        <GoogleIcon className="social-icon" />
-                                        <LinkedInIcon className="social-icon" />
-                                    </div>
-                                    <p>or use your email for registration:</p>
-                                    <form onSubmit={handleRegisterSubmit}>
-                                        <div className="input-container">
-                                            <PersonIcon className="input-icon" />
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                className="form-control"
-                                                placeholder="Name"
-                                                value={registerData.name}
-                                                onChange={handleRegisterChange}
-                                            />
-                                        </div>
-                                        <div className="input-container">
-                                            <EmailIcon className="input-icon" />
-                                            <input
-                                                type="email"
-                                                name="email"
-                                                className="form-control"
-                                                placeholder="Email"
-                                                value={registerData.email}
-                                                onChange={handleRegisterChange}
-                                            />
-                                        </div>
-                                        <div className="input-container">
-                                            <LockIcon className="input-icon" />
-                                            <input
-                                                type="password"
-                                                name="password"
-                                                className="form-control"
-                                                placeholder="Password"
-                                                value={registerData.password}
-                                                onChange={handleRegisterChange}
-                                            />
-                                        </div>
-                                        <button className="btn sign-up-btn" type="submit">SIGN UP</button>
-                                        <p>Already have an account? <span className="toggle-link" onClick={toggleView}>Login</span></p>
-                                    </form>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </div>
+  return (
+    <div className="container">
+      <div className="row">
+        <h1>Apply Leave</h1>
+        <div className="col">
+          <form onSubmit={handleSubmit}>
+            <div className="inputs Leave-inputs mt-5">
+              <label className='form-label'>Starts From</label>
+              <input
+                type="date"
+                className='form-control'
+                value={startDate}
+                onChange={handleChangeStart}
+              />
             </div>
+
+            <div className="inputs Leave-inputs mt-3">
+              <label className='form-label'>End Date</label>
+              <input
+                type="date"
+                className='form-control'
+                value={endDate}
+                onChange={handleChangeEnd}
+              />
+            </div>
+
+            {startDate === endDate && startDate !== '' && (
+              <div className="inputs Leave-inputs mt-3">
+                <label htmlFor="leaveType" className='form-label'>Day</label>
+                <select
+                  id="leaveType1"
+                  className='form-control'
+                  value={leaveType}
+                  onChange={handleLeaveType}
+                >
+                  <option value="fullDay">Full Day</option>
+                  <option value="halfDay">Half Day</option>
+                </select>
+              </div>
+            )}
+
+            <button className='btn btn-primary mt-3' type="submit">
+              Submit Leave
+            </button>
+
+            <div className="balance mt-5">
+              <p>Leave Balance: {leaveBalance.toFixed(1)}</p>
+            </div>
+          </form>
         </div>
-    );
+
+        <div className="col">
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            inline
+            highlightDates={leaveDays}
+            dayClassName={(date) => 
+              leaveDays.some(day => day.toDateString() === date.toDateString()) ? 'highlight-leave' : undefined
+            }
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default Login;
+export default Profile;

@@ -6,41 +6,34 @@ import Employees from './pages/Employees';
 import Profile from './pages/Profile';
 import FullProfile from './pages/FullProfile';
 import Dashboard from './pages/Dashboard';
-import { useState } from 'react';
 import Login from './pages/Login';
+import { Auth } from './context/authcontext';
 
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  const handleLogIn = ()=>{
-    setIsLoggedIn(!isLoggedIn)
-  }
 
   return (
     <BrowserRouter>
       <div className="App">
-        {isLoggedIn ? (<>
-          <Sidebar /> {/* Sidebar remains fixed on the left */}
-          <div className="main-content"> {/* Main content area for displaying routes */}  
-            <Routes>
+        <Auth>    
+          <Routes>
+            <Route path='/Login' element={<Login />} />
+            <Route element={<Sidebar />}>
               <Route path="api/addEmp" element={<AddEmployee />} />
               <Route path="/Employees" element={<Employees />} />
               <Route path="/Profile" element={<Profile />} />
               <Route path="/viewProfile/:email" element={<FullProfile />} /> {/* Add the ViewProfile route */}
               <Route path='/Dashboard' element={<Dashboard />} />
-            </Routes>
-          </div>
-        </>)
-          : (<>
-            <Login onLogIn={handleLogIn}/> {/* Sidebar remains fixed on the left */}
-          </>)}
+            </Route>
+          </Routes>
+        </Auth>
+
 
       </div>
     </BrowserRouter>
   );
-  
+
 }
 
 export default App;
