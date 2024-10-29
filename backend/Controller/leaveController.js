@@ -18,11 +18,13 @@ exports.addleave = async (req, res) => {
     }
 }
 
-exports.showLeave = (req, res) => {
+exports.showLeave =async (req, res) => {
     try {
-        const { email } = req.body
+        const {email} = req.params.email
+        
 
-        const findUser = leaveSchema.findOne({ email })
+        const findUser =await leaveSchema.find( {email} )
+        console.log(findUser)
 
         if (!findUser) {
             res.status(201).send('User Not Found')

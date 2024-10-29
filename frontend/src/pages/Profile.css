@@ -11,6 +11,128 @@
     color: white; /* Text color for visibility */
     border-radius: 50%; /* Optional: Make it circular */
   }
+
+  .profile-page .btn {
+    background-color: rgb(0, 128, 128);
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.profile-page .btn:hover {
+    background-color: #2b6cb0;
+    color: #fff;
+}
+
+.leaveBox-container{
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Calendar Container */
+.calendar-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  /* Customize Calendar Headers */
+  .rbc-toolbar-label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #174454;
+    text-align: center;
+  }
+  
+  .rbc-toolbar button {
+    background-color: #174454;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .rbc-toolbar button:hover {
+    background-color: #1e596a;
+  }
+  
+  /* Calendar Day Headers */
+  .rbc-header {
+    font-weight: bold;
+    color: #174454;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Weekday and Weekend Backgrounds */
+  .rbc-day-bg {
+    background-color: #fff;
+  }
+  
+  .rbc-day-bg:nth-child(7n+1),
+  .rbc-day-bg:nth-child(7n+7) {
+    background-color: rgba(156, 158, 173, 0.637); /* Light blue-gray for weekends */
+  }
+  
+  /* Event Styling */
+  .rbc-event {
+    background-color: #1e596a; /* Event color */
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+  
+  /* Calendar Cells */
+  .rbc-date-cell {
+    padding: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Today's Date Highlight */
+  .rbc-today {
+    background-color: #e6f7ff;
+    border: 1px solid #174454;
+  }
+  
+  /* Selected Date (hover) */
+  .rbc-day-bg:hover {
+    background-color: #edf8fd;
+  }
+  
+  /* Calendar View Styling */
+  .rbc-month-view,
+  .rbc-time-view,
+  .rbc-agenda-view {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .rbc-time-header-cell {
+    font-weight: 600;
+    color: #174454;
+  }
+
+  .rbc-btn-group{
+    display: none;
+  }
+  
+
+
   
   
   
