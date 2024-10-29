@@ -11,7 +11,7 @@ import { useAuth } from '../context/authcontext';
 import { useNavigate } from 'react-router-dom';
 
 
-const Login = ({onLogIn}) => {
+const Login = () => {
     const [isLoginView, setIsLoginView] = useState(false);
     const {user, Login} = useAuth()
     const navigate = useNavigate()

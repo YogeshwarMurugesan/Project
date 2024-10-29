@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const empDetailsrouter = require('./Routes/empDetailsRouter') 
 const cors = require('cors')
 const authRouter = require('./Routes/authRouter')
+const leaveRouter = require('./Routes/leaveRouter')
 const app = express()
 app.use(express.json()) 
 
@@ -18,6 +19,7 @@ mongoose.connect('mongodb://localhost:27017/Project')
 app.use(cors())
 app.use(empDetailsrouter)
 app.use(authRouter)
+app.use(leaveRouter)
 
 app.listen(PORT, ()=>{
     console.log('Port is listening on : '+ PORT)

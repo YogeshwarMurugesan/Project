@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Auth>    
+        <Auth>
           <Routes>
             <Route path='/Login' element={<Login />} />
             <Route element={<Sidebar />}>
