@@ -156,14 +156,9 @@ const AddEmployee = () => {
                   {errors.state && <span>{errors.state}</span>}
                 </div>
                 <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
-                  <label htmlFor="" className='form-label' id='heading2'>Country</label>
-                  <input type="text" className='form-control' placeholder='Enter Country Name' name='country' onChange={handleChange} value={values.country} />
-                  {errors.country && <span>{errors.country}</span>}
-                </div>
-                <div className="col col-lg-4 col-md-6 col-sm-12 mt-3">
                   <label htmlFor="" className='form-label' id='heading2'>Zip Code</label>
-                  <input type="text" className='form-control' placeholder='Enter Zip Code' name='zip' onChange={handleChange} value={values.zip} />
-                  {errors.zip && <span>{errors.zip}</span>}
+                  <input type="text" className='form-control' placeholder='Enter pin Code' name='pinCode' onChange={handleChange} value={values.pinCode} />
+                  {errors.pinCode && <span>{errors.pinCode}</span>}
                 </div>
                 <div className='nbtn'>
                   <button className='btn btn-danger me-2' type="button" onClick={() => handleClick('job')}>Previous</button>

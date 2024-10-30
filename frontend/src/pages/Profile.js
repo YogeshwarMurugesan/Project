@@ -25,6 +25,7 @@ const Profile = () => {
         const response = await axios.get(`http://localhost:3001/profile/${user?.email || user?._id}`);
         const leaveData = response.data;
 
+        console.log(`${user?.email || user?._id}`)
 
         setLeaveDays(leaveData);
         const totalLeaveTaken = leaveData.reduce((acc, leave) => {
@@ -46,12 +47,9 @@ const Profile = () => {
       }
     };
 
-
-
     if (user?.email || user?._id) {
       fetchLeave();
     }
-
 
 
   }, [user]);

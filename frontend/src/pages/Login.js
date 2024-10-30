@@ -6,49 +6,67 @@ import LockIcon from '@mui/icons-material/Lock';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import axios from 'axios'
+import axios from 'axios';
 import { useAuth } from '../context/authcontext';
 import { useNavigate } from 'react-router-dom';
 
-
 const Login = () => {
     const [isLoginView, setIsLoginView] = useState(false);
-    const {user, Login} = useAuth()
-    const navigate = useNavigate()
+    const { user, Login } = useAuth();
+    const navigate = useNavigate();
 
     const [registerData, setRegisterData] = useState({
         name: '',
         email: '',
         password: ''
-    })
+    });
 
+    const [loginData, setLoginData] = useState({
+        email: '',
+        password: ''
+    });
 
     const toggleView = () => {
         setIsLoginView(!isLoginView);
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
+        isLoginView ?
+            setLoginData({
+                ...loginData, [name]: value
+            }) :
+            setRegisterData({
+                ...registerData,
+                [name]: value
+            });
+    };
 
-        setRegisterData({
-            ...registerData,
-            [name]: value
-        })
-    }
-
-    const handleRegisterSubmit =async (e)=>{
+    const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001',registerData )
-            alert('Register Successfully')
-            const token = localStorage.setItem('token', JSON.stringify(registerData))
-            Login()
-            navigate('/Dashboard')
+            const response = await axios.post('http://localhost:3001/register', registerData);
+            alert('Register Successfully');
+            localStorage.setItem('token', JSON.stringify(response.data.token));
+            Login();
+            navigate('/Dashboard');
         } catch (error) {
-            alert(error)
+            alert(error.message || "Registration failed");
         }
+    };
 
-    }
+    const handleLoginSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.get('http://localhost:3001/login', loginData); // Change to POST method
+            localStorage.setItem('token', JSON.stringify(response.data.token));
+            console.log(loginData);
+            Login();
+            navigate('/Dashboard');
+        } catch (error) {
+            alert(error.message || "Login failed");
+        }
+    };
 
     return (
         <div className="container login-page">
@@ -56,44 +74,37 @@ const Login = () => {
                 <div className={`col-lg-6 col-md-8 col-sm-12 container-box ${isLoginView ? 'login-active' : ''}`}>
                     <div className="left-box">
                         {isLoginView ? (
-                            <>
-                                <div className="content">
-                                    <h1>Hello!</h1>
-                                    <p>To get started on this journey, create your account with us!</p>
-                                    <button className="btn sign-in-btn" onClick={toggleView}>SIGN UP</button>
-                                </div>
-                            </>
+                            <div className="content">
+                                <h1>Hello!</h1>
+                                <p>To get started on this journey, create your account with us!</p>
+                                <button className="btn sign-in-btn" onClick={toggleView}>SIGN UP</button>
+                            </div>
                         ) : (
-                            <>
-                                <div className="content">
-                                    <h1>Welcome Back!</h1>
-                                    <p>To keep connected with us please login with your personal info</p>
-                                    <button className="btn sign-in-btn" onClick={toggleView}>LOG IN</button>
-                                </div>
-                            </>
+                            <div className="content">
+                                <h1>Welcome Back!</h1>
+                                <p>To keep connected with us please login with your personal info</p>
+                                <button className="btn sign-in-btn" onClick={toggleView}>LOG IN</button>
+                            </div>
                         )}
                     </div>
 
                     <div className="right-box">
                         <div className="content">
                             {isLoginView ? (
-                                // Login Form
-                                <>
+                                <form action="" onSubmit={handleLoginSubmit}>
                                     <h1>Login</h1>
                                     <div className="input-container">
                                         <EmailIcon className="input-icon" />
-                                        <input type="email" className="form-control" placeholder="Email" />
+                                        <input type="email" className="form-control" placeholder="Email" name='email' value={loginData.email} onChange={handleChange} />
                                     </div>
                                     <div className="input-container">
                                         <LockIcon className="input-icon" />
-                                        <input type="password" className="form-control" placeholder="Password" />
+                                        <input type="password" className="form-control" placeholder="Password" name='password' value={loginData.password} onChange={handleChange} />
                                     </div>
                                     <button className="btn sign-up-btn">LOGIN</button>
                                     <p>Don’t have an account? <span className="toggle-link" onClick={toggleView}>Sign Up</span></p>
-                                </>
+                                </form>
                             ) : (
-                                // Sign Up Form
-                                <>
                                 <form action="" onSubmit={handleRegisterSubmit}>
                                     <h1>Create Account</h1>
                                     <div className="social-icons">
@@ -108,16 +119,15 @@ const Login = () => {
                                     </div>
                                     <div className="input-container">
                                         <EmailIcon className="input-icon" />
-                                        <input type="email" name='email' className="form-control" placeholder="Email" value={registerData.email }  onChange={handleChange}/>
+                                        <input type="email" name='email' className="form-control" placeholder="Email" value={registerData.email} onChange={handleChange} />
                                     </div>
                                     <div className="input-container">
                                         <LockIcon className="input-icon" />
-                                        <input type="password" name='password' className="form-control" placeholder="Password" value={registerData.password } onChange= {handleChange} />
+                                        <input type="password" name='password' className="form-control" placeholder="Password" value={registerData.password} onChange={handleChange} />
                                     </div>
                                     <button className="btn sign-up-btn">SIGN UP</button>
                                     <p>Already have an account? <span className="toggle-link" onClick={toggleView}>Login</span></p>
-                                    </form>
-                                </>
+                                </form>
                             )}
                         </div>
                     </div>
