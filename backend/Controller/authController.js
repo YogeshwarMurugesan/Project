@@ -4,8 +4,6 @@ const bcrypt = require('bcrypt');
 exports.register = async (req, res) => {
     const {name, email, password} = req.body
 
-    console.log(req.body)
-
     try {
         const findUser =await authModel.findOne({email})
 
@@ -24,21 +22,35 @@ exports.register = async (req, res) => {
 
 exports.logIn= async (req,res)=>{
     const {email, password} = req.body
+
+    console.log(req.body)
+   
     try {
 
         const findUser = await authModel.findOne({email})
+        console.log(`findUser : ${findUser}`)
+
 
         if(!findUser){
-            return res.status(400).json({error : 'Email and password are required'})
+            return res.status(400).json({error : 'Please Register'})
         }
         
-        const passwordMatch = bcrypt.compareSync(password,authModel.password )
+        const passwordMatch = bcrypt.compareSync(password,findUser.password )
+        console.log(passwordMatch)
+
     
-        if(!passwordMatch){
+        if(passwordMatch){
             return res.status(400).json({error : 'Password Incorrect'})
         }
 
+        console.log('Login  Successfully')
+        const userData = {
+            id : findUser._id,
+            email: findUser.email,
+            name :findUser.name
+        }
         return res.status(201).json('Login  Successfully')
+        
 
     } catch (error) {
         console.log('error : ' + error)

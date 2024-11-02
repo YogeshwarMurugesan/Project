@@ -3,10 +3,14 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import './Login.css'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useAuth } from '../context/authcontext';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
-
+    const { Login , logOut} = useAuth()
+    const navigate = useNavigate()
     const [loginData, setLoginData] = useState({
         email: '',
         password: ''
@@ -20,8 +24,16 @@ const Login = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        try {
+            const response = await axios.post('http://localhost:3001/Login', loginData)
+            localStorage.setItem('token', response.config.data)
+            Login()
+            navigate('/Dashboard')
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
     }
 
     console.log(loginData)

@@ -35,7 +35,7 @@ const Register = () => {
         try {
             const response = await axios.post('http://localhost:3001/', registerData)
             alert('User Register Successfully ')
-            Login()
+            // Login()
             navigate('/Login')
             console.log('User Register Successfully ' + registerData)
         } catch (error) {
