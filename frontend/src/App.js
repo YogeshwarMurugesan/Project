@@ -8,6 +8,7 @@ import FullProfile from './pages/FullProfile';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import { Auth } from './context/authcontext';
+import NavigationBar from './Componends/NavigationBar';
 
 
 
@@ -18,8 +19,9 @@ function App() {
       <div className="App">
         <Auth>
           <Routes>
-            <Route path='/Login' element={<Login />} />
+            <Route path='/' element={<Login />} />
             <Route element={<Sidebar />}>
+            <Route element = {<NavigationBar/>}/>
               <Route path="api/addEmp" element={<AddEmployee />} />
               <Route path="/Employees" element={<Employees />} />
               <Route path="/Profile" element={<Profile />} />

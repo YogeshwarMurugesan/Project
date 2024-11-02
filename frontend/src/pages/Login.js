@@ -45,7 +45,7 @@ const Login = () => {
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/register', registerData);
+            const response = await axios.post('http://localhost:3001/', registerData);
             alert('Register Successfully');
             localStorage.setItem('token', JSON.stringify(response.data.token));
             Login();
@@ -58,7 +58,7 @@ const Login = () => {
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get('http://localhost:3001/login', loginData); // Change to POST method
+            const response = await axios.get('http://localhost:3001/', loginData); // Change to POST method
             localStorage.setItem('token', JSON.stringify(response.data.token));
             console.log(loginData);
             Login();
