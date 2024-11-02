@@ -6,6 +6,7 @@ import Employees from './pages/Employees';
 import Profile from './pages/Profile';
 import FullProfile from './pages/FullProfile';
 import Dashboard from './pages/Dashboard';
+import Register from './pages/Register';
 import Login from './pages/Login';
 import { Auth } from './context/authcontext';
 import NavigationBar from './Componends/NavigationBar';
@@ -19,7 +20,8 @@ function App() {
       <div className="App">
         <Auth>
           <Routes>
-            <Route path='/' element={<Login />} />
+            <Route path='/' element={<Register />} />
+            <Route path='/Login' element={<Login />} />
             <Route element={<Sidebar />}>
             <Route element = {<NavigationBar/>}/>
               <Route path="api/addEmp" element={<AddEmployee />} />
@@ -30,8 +32,6 @@ function App() {
             </Route>
           </Routes>
         </Auth>
-
-
       </div>
     </BrowserRouter>
   );
