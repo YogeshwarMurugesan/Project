@@ -17,15 +17,20 @@ const Profile = () => {
   const [leaveDays, setLeaveDays] = useState([]);
   const [events, setEvents] = useState([]);
 
+
   const { user } = useAuth();
+
 
   useEffect(() => {
     const fetchLeave = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/profile/${user?.email || user?._id}`);
-        const leaveData = response.data;
+        const leaveData =await response.data
 
-        console.log(`${user?.email || user?._id}`)
+        // console.log(`${user?.email || user?._id}`)
+
+        console.log(leaveData)
+
 
         setLeaveDays(leaveData);
         const totalLeaveTaken = leaveData.reduce((acc, leave) => {
@@ -70,11 +75,13 @@ const Profile = () => {
         startDate,
         endDate,
         leaveType,
-        user: user?.name || user?._id,
-        email: user?.email || user?._id,
+        user: { email: user?.email || user?._id }
       };
 
       await axios.post('http://localhost:3001/profile', details);
+
+      console.log(details);
+
 
       const start = new Date(startDate);
       const end = new Date(endDate);
@@ -114,18 +121,17 @@ const Profile = () => {
   };
 
 
-
   return (
     <div className="container profile-page">
       <div className="row ">
         <h1 className="heading text-center">Apply Leave</h1>
         <motion.div
-            className="row"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-        <div className="col leaveBox-container">
+          className="row"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="col leaveBox-container">
             <h2 className='heading text-center'>Leave Form</h2>
             <form onSubmit={handleSubmit}>
               <div className="inputs Leave-inputs ">
@@ -174,7 +180,7 @@ const Profile = () => {
                   <option value="other">Other</option>
                 </select>
               </div>
-              
+
 
               <button type="submit" className="btn btn-primary mt-3 ">Submit Leave</button>
 
@@ -183,54 +189,54 @@ const Profile = () => {
               </div>
             </form>
 
-        </div>
-        
-        <div className="col">
-          <Calendar
-            className="calendar-container"
-            localizer={localizer}
-            events={events}
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: 500, marginTop: '20px' }}
-          />
-        </div>
+          </div>
+
+          <div className="col">
+            <Calendar
+              className="calendar-container"
+              localizer={localizer}
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
+              style={{ height: 500, marginTop: '20px' }}
+            />
+          </div>
         </motion.div>
       </div>
 
       <motion.div
-            className="row"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-      <div className="row mt-5 border p-5">
-        <div className="col">
-       
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>NO</th>
-                <th>Leave Date</th>
-                <th>No of Leave Days</th>
-                <th>Leave Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leaveDays.map((day, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{new Date(day.startDate).toLocaleDateString()}</td>
-                  <td>{Math.ceil((new Date(day.endDate) - new Date(day.startDate)) / (1000 * 3600 * 24) + 1)}</td>
-                  <td>{day.leaveType}</td>
-                </tr>
-              ))}
-            </tbody>
+        className="row"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="row mt-5 border p-5">
+          <div className="col">
 
-          </table>
-         
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>NO</th>
+                  <th>Leave Date</th>
+                  <th>No of Leave Days</th>
+                  <th>Leave Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leaveDays.map((day, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{new Date(day.startDate).toLocaleDateString()}</td>
+                    <td>{Math.ceil((new Date(day.endDate) - new Date(day.startDate)) / (1000 * 3600 * 24) + 1)}</td>
+                    <td>{day.leaveType}</td>
+                  </tr>
+                ))}
+              </tbody>
+
+            </table>
+
+          </div>
         </div>
-      </div>
       </motion.div>
     </div>
 

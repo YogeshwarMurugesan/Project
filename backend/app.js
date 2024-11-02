@@ -9,7 +9,7 @@ const app = express()
 app.use(express.json()) 
 
 
-mongoose.connect('mongodb://localhost:27017/Project')
+mongoose.connect('mongodb+srv://yogeshwarmurugesan4:%40Manikandan4444@cluster0.snxag.mongodb.net/?retryWrites=true&w=majority')
 .then(() => {
     console.log('mongoose is connected')
 }).catch((err) => {

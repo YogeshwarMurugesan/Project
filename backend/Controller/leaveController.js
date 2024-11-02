@@ -4,8 +4,10 @@ exports.addleave = async (req, res) => {
     try {
         const { startDate, endDate, leaveType, user } = req.body
 
+        console.log(req.body);
+
         const leave = await leaveSchema.create({
-            startDate, endDate, leaveType, user
+            startDate, endDate, leaveType, user: user.email
         })
 
         res.status(201).json(leave)
@@ -16,13 +18,13 @@ exports.addleave = async (req, res) => {
     }
 }
 
-exports.showLeave =async (req, res) => {
+exports.showLeave = async (req, res) => {
     try {
-        const email = req.params.email      
+        const email = req.params.email
 
-        console.log(email)
+        const findUser = await leaveSchema.find({ user: email })
 
-        const findUser =await leaveSchema.find( {email} )
+        console.log(findUser)
 
         if (!findUser) {
             res.status(201).send('User Not Found')

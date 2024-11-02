@@ -11,6 +11,8 @@ export const Auth = ({ children }) => {
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState(null)
 
+    // console.log('user');
+
     const Login = () => {
         const token = localStorage.getItem('token')
         setUser(JSON.parse(token))
