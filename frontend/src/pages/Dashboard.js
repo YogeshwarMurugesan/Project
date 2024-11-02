@@ -56,18 +56,18 @@ const SmallCalendar = () => {
                 <h1 className='heading text-center mb-4'>Dashboard</h1>
                 <div className="row">
                     <div className="col">
-                        <div class="card" >
-                            <div class="card-body">
-                                <h5 class="card-title">Total Employees : {employee.length}</h5>
-                                <a href="#" class="btn btn-primary">See Employee Details</a>
+                        <div className="card" >
+                            <div className="card-body">
+                                <h5 className="card-title">Total Employees : {employee.length}</h5>
+                                <a href="#" className="btn btn-primary">See Employee Details</a>
                             </div>
                         </div>
                     </div>
                     <div className="col">
-                        <div class="card" >
-                            <div class="card-body">
-                                <h5 class="card-title">Leave  Balance : {leave}</h5>
-                                <a href="#" class="btn btn-primary">See Leave Details Details</a>
+                        <div className="card" >
+                            <div className="card-body">
+                                <h5 className="card-title">Leave  Balance : {leave}</h5>
+                                <a href="#" className="btn btn-primary">See Leave Details Details</a>
                             </div>
                         </div>
                     </div>

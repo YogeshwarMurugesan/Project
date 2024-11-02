@@ -4,10 +4,12 @@ const bcrypt = require('bcrypt');
 exports.register = async (req, res) => {
     const {name, email, password} = req.body
 
+    console.log(req.body)
+
     try {
         const findUser =await authModel.findOne({email})
 
-        if(!findUser){
+        if(findUser){
             return res.status(409).json('User is already exists')
         }
 
@@ -22,9 +24,6 @@ exports.register = async (req, res) => {
 
 exports.logIn= async (req,res)=>{
     const {email, password} = req.body
-
-    
-
     try {
 
         const findUser = await authModel.findOne({email})

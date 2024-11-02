@@ -1,5 +1,5 @@
 /* Login Page Container */
-.container.loginPage {
+ .container.loginPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,7 @@
 }
 
 /* Row Styling */
-.row {
+.loginPage .row {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -19,7 +19,7 @@
 }
 
 /* Left Box Styling */
-.leftbox {
+.loginPage .leftbox {
     background-color: #4a90e2;
     color: #fff;
     padding: 40px;
@@ -30,17 +30,17 @@
     padding: 50px;
 }
 
-.leftbox h1 {
+.loginPage .leftbox h1 {
     font-size: 36px;
     margin-bottom: 20px;
 }
 
-.leftbox p {
+.loginPage .leftbox p {
     font-size: 16px;
     margin-bottom: 30px;
 }
 
-.leftbox .btn {
+.loginPage .leftbox .btn {
     background-color: #fff;
     color: #4a90e2;
     border: none;
@@ -50,12 +50,12 @@
     transition: background-color 0.3s;
 }
 
-.leftbox .btn:hover {
+.loginPage .leftbox .btn:hover {
     background-color: #e6e9ee;
 }
 
 /* Right Box Styling */
-.rightbox {
+.loginPage .rightbox {
     background-color: #fff;
     padding: 40px;
     display: flex;
@@ -63,17 +63,17 @@
     justify-content: center;
 }
 
-.rightbox h1 {
+.loginPage .rightbox h1 {
     font-size: 36px;
     margin-bottom: 20px;
 }
 
-.input-container {
+.loginPage .input-container {
     position: relative;
     margin-bottom: 20px;
 }
 
-.input-icon {
+.loginPage .input-icon {
     position: absolute;
     left: 10px;
     top: 50%;
@@ -81,7 +81,7 @@
     color: #4a90e2;
 }
 
-.form-control {
+.loginPage .form-control {
     width: 100%;
     padding: 10px 10px 10px 40px;
     border: 1px solid #ccc;
@@ -90,11 +90,11 @@
     transition: border 0.3s;
 }
 
-.form-control:focus {
+.loginPage .form-control:focus {
     border-color: #4a90e2;
 }
 
-.sign-up-btn {
+.loginPage .sign-up-btn {
     background-color: #4a90e2;
     color: #fff;
     border: none;
@@ -104,17 +104,17 @@
     transition: background-color 0.3s;
 }
 
-.sign-up-btn:hover {
+.loginPage .sign-up-btn:hover {
     background-color: #3b7dc2;
 }
 
 /* Toggle Link Styling */
-.toggle-link {
+.loginPage .toggle-link {
     color: #4a90e2;
     cursor: pointer;
     font-weight: bold;
 }
 
-.toggle-link:hover {
+.loginPage .toggle-link:hover {
     text-decoration: underline;
 }
