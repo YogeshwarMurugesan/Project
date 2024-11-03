@@ -9,6 +9,7 @@
     /* Replace <weight> with a number (e.g., 400 for normal, 700 for bold) */
     font-style: normal;
     /* Use normal, italic, or oblique */
+
 }
 
 
@@ -24,6 +25,7 @@
 .custom-box label {
     font-weight: bold;
     color: #333;
+    
 }
 
 .custom-box select {

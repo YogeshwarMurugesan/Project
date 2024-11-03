@@ -2,13 +2,15 @@ import { useState } from 'react';
 import './Sidebar.css';
 import { sideBarData } from './SidebarData';
 import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
-    const [activeLink, setActiveLink] = useState(window.location.pathname);
+    const [activeLink, setActiveLink] = useState(window.location.pathname)
+    const navigate = useNavigate()
 
     const handleLink = (link) => {
         setActiveLink(link);
-        window.location.href = link; // Navigate to the link
+        navigate(link)
     };
 
     return (
@@ -18,7 +20,7 @@ const Sidebar = () => {
                     {sideBarData.map((data, ind) => {
                         return (
                             <li key={ind}
-                                id={activeLink === data.link ? "active" : ""}
+                                id={activeLink === data.link ? "active" : "" }
                                 onClick={() => handleLink(data.link)}
                             >
                                 <div className='icon'>{data.icon}</div>

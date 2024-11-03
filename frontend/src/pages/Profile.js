@@ -131,7 +131,7 @@ const Profile = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="col leaveBox-container">
+          <div className="col col-lg-6 com-sm-12 leaveBox-container">
             <h2 className='heading text-center'>Leave Form</h2>
             <form onSubmit={handleSubmit}>
               <div className="inputs Leave-inputs ">
@@ -191,7 +191,7 @@ const Profile = () => {
 
           </div>
 
-          <div className="col">
+          <div className="col col-lg-6 com-sm-12">
             <Calendar
               className="calendar-container"
               localizer={localizer}

@@ -1,17 +1,31 @@
-.App {
-    display: flex;
-  }
-  
-  .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: rgb(47, 61, 77);
-  }
-  
+* {
+  margin: 0;
+  padding: 0;
+}
 
-  .main-content {
-    flex: 1; 
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-  
+.main-layout {
+  display: flex;
+  margin-top: 60px; /* Space for navbar */
+}
+
+.sidebar {
+  background-color: rgb(23, 68, 84);
+  height: calc(100vh - 60px); /* Full height minus navbar height */
+  width: 250px; /* Width of the sidebar */
+  position: fixed; /* Keep the sidebar fixed */
+  top: 60px; /* Start below the navbar */
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px; /* Space around the main content */
+  margin-left: 250px; /* Space for sidebar */
+}
+
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure navbar stays on top */
+}

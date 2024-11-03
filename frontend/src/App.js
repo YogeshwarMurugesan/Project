@@ -9,7 +9,6 @@ import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import { Auth } from './context/authcontext';
-import NavigationBar from './Componends/NavigationBar';
 
 
 
@@ -23,7 +22,6 @@ function App() {
             <Route path='/' element={<Register />} />
             <Route path='/Login' element={<Login />} />
             <Route element={<Sidebar />}>
-            <Route element = {<NavigationBar/>}/>
               <Route path="api/addEmp" element={<AddEmployee />} />
               <Route path="/Employees" element={<Employees />} />
               <Route path="/Profile" element={<Profile />} />
