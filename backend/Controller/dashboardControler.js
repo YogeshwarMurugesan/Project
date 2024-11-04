@@ -11,3 +11,17 @@ exports.findEmployee = async (req, res) => {
     }
     res.status(201).json(findUser)
  }
+
+ exports.getEmployee = async (req, res) => {
+
+   try {
+      const User = await employeeSchema.find()
+      res.status(201).json(User)
+   console.log(User)
+
+   } catch (error) {
+      console.log(error)
+      res.status(400).json({ error: error.message })
+   }
+
+}
