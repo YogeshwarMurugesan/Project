@@ -10,7 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 
 const Sidebar = () => {
-    const { user } = useAuth();
+    const { user,logOut } = useAuth();
     const [userName, setUserName] = useState('');
     const [userDetails, setUserDetails] = useState(null);
     const [activeLink, setActiveLink] = useState(window.location.pathname);
@@ -53,6 +53,11 @@ const Sidebar = () => {
         }
     };
 
+    const handleLogOut = ()=>{
+        navigate('/')
+        logOut()
+    }
+
     return (
         <>
             <nav className="navbar container-fluid w-100">
@@ -90,7 +95,7 @@ const Sidebar = () => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => navigate('/Employees')} >View Full Profile</button>
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleLogOut} ><LogoutIcon/> LogOut</button>
                         </div>
                     </div>
                 </div>
@@ -110,7 +115,7 @@ const Sidebar = () => {
                     ))}
 
                 </ul>
-                    <button className='btn w-100 p-4 mb-5' ><LogoutIcon/> Log Out</button>
+                    <button className='btn btn-secondary w-100 p-4 mb-2' onClick={handleLogOut}><LogoutIcon/> Log Out</button>
             </div>
 
 

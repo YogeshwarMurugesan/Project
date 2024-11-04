@@ -1,5 +1,5 @@
 /* Login Page Container */
- .container.loginPage {
+.container.loginPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,9 +18,13 @@
     overflow: hidden;
 }
 
+.loginPage .row .color-light {
+    color: whitesmoke;
+}
+
 /* Left Box Styling */
 .loginPage .leftbox {
-    background-color: #4a90e2;
+    background-color: rgb(30, 90, 107);
     color: #fff;
     padding: 40px;
     display: flex;
@@ -78,7 +82,7 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #4a90e2;
+    color:  #2b6cb0;
 }
 
 .loginPage .form-control {
@@ -95,7 +99,7 @@
 }
 
 .loginPage .sign-up-btn {
-    background-color: #4a90e2;
+    background-color:  #2b6cb0;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -105,7 +109,7 @@
 }
 
 .loginPage .sign-up-btn:hover {
-    background-color: #3b7dc2;
+    background-color: rgb(0, 128, 128);
 }
 
 /* Toggle Link Styling */

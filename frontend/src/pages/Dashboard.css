@@ -1,0 +1,10 @@
+.DashboardPage .card-body{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.DashboardPage .btn{
+    color:white;
+    background-color: rgb(0, 128, 128);
+}

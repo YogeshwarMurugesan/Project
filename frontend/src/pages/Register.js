@@ -49,7 +49,7 @@ const Register = () => {
         <div className="container loginPage">
             <div className="row">
                 <div className="col col-lg-6 col-md-6 col-sm-12 leftbox ">
-                    <h1>Welcome Back!</h1>
+                    <h1 className='color-light'>Welcome Back!</h1>
                     <p>To keep connected with us please login with your personal info</p>
                     <Link to='/Login' className="btn sign-in-btn">LOG IN</Link>
 

@@ -3,10 +3,16 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useAuth } from '../context/authcontext';
 import axios from 'axios'; // Make sure axios is imported correctly
+import './Dashboard.css'
+import { useNavigate } from 'react-router-dom';
+
 
 const SmallCalendar = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const { user, loading } = useAuth()
+
+    const navigate = useNavigate()
+
 
     const [employee,setEmployee] = useState([])
     const [leave, setLeave] = useState('')
@@ -19,10 +25,7 @@ const SmallCalendar = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
-
-
-    
+    }, []);  
 
     
     if (loading) {
@@ -52,14 +55,14 @@ const SmallCalendar = () => {
     return (
 
         <>
-            <div className="container mb-5">
+            <div className="DashboardPage container mb-5">
                 <h1 className='heading text-center mb-4'>Dashboard</h1>
                 <div className="row">
                     <div className="col">
                         <div className="card" >
                             <div className="card-body">
                                 <h5 className="card-title">Total Employees : {employee.length}</h5>
-                                <a href="#" className="btn btn-primary">See Employee Details</a>
+                                <a href="#" className="btn " onClick={()=>{navigate('/Employees')}}>See Employee Details</a>
                             </div>
                         </div>
                     </div>
@@ -67,13 +70,13 @@ const SmallCalendar = () => {
                         <div className="card" >
                             <div className="card-body">
                                 <h5 className="card-title">Leave  Balance : {leave}</h5>
-                                <a href="#" className="btn btn-primary">See Leave Details Details</a>
+                                <a href="#" className="btn ">See Leave Details Details</a>
                             </div>
                         </div>
                     </div>
                     
                 </div>
-            </div>
+            
 
             <DatePicker
                 selected={selectedDate}
@@ -82,6 +85,7 @@ const SmallCalendar = () => {
                 highlightDates={holidays}
                 dayClassName={(date) => date.getDay() === 0 ? 'highlight-sunday' : undefined}
             />
+            </div>
         </>
     );
 };

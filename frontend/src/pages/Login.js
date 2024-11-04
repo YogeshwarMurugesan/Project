@@ -41,14 +41,14 @@ const Login = () => {
         <div className="container loginPage">
             <div className="row">
                 <div className="col col-lg-6 col-md-6 col-sm-12 leftbox ">
-                    <h1>Hello!</h1>
+                    <h1 className='color-light'>Hello!</h1>
                     <p>To get started on this journey, create your account with us!</p>
                     <Link to='/' className="btn sign-in-btn">SIGN UP</Link>
                 </div>
 
                 <div className="col col-lg-6 col-md-6 col-sm-12 rightbox">
                     <form onSubmit={handleSubmit}>
-                        <h1 className='text-center heading'>Login</h1>
+                        <h1 className='text-center heading '>Login</h1>
                         <div className="input-container">
                             <EmailIcon className="input-icon" />
                             <input type="email" className="form-control" placeholder="Email" name='email' onChange={handleChange} value={loginData.email} />
@@ -57,7 +57,7 @@ const Login = () => {
                             <LockIcon className="input-icon" />
                             <input type="password" className="form-control" placeholder="Password" name='password' onChange={handleChange} value={loginData.password} />
                         </div>
-                        <button className="btn sign-up-btn">LOGIN</button>
+                        <button className="btn sign-up-btn w-100">LOGIN</button>
                         <p className='mt-5'>Don’t have an account? <Link to='/' className="toggle-link" >Sign Up</Link></p>
                     </form>
                 </div>
