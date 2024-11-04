@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanuman:wght@100;300;400;700;900&family=Lexend:wght@100..900&family=Markazi+Text:wght@400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
- body {
+body {
     font-family: "Lexend", sans-serif;
     /* Set the font family */
     font-optical-sizing: auto;
@@ -25,7 +25,7 @@
 .custom-box label {
     font-weight: bold;
     color: #333;
-    
+
 }
 
 .custom-box select {
@@ -57,12 +57,43 @@
 .showpices {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     list-style: none;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
+}
+
+.showpices .row {
+    display: flex;
+    /* Use flexbox for layout */
+    justify-content: center;
+    /* Center items horizontally */
+    align-items: center;
+    /* Center items vertically */
+    margin-bottom: 20px;
+    /* Optional: Space between rows */
+    width: 100%;
+}
+
+.showpices .col {
+    display: flex;
+    /* Use flexbox for each column */
+    justify-content: center;
+    /* Center button horizontally */
+    align-items: center;
+    /* Center button vertically */
+    margin-bottom: 10px;
+    /* Space between buttons in the same column */
+}
+
+/* Optional: Style buttons */
+.showpices .btn {
+    padding: 10px 20px;
+    /* Adjust padding for buttons */
+    font-size: 16px;
+    /* Set font size */
 }
 
 .showpices a {
@@ -132,10 +163,10 @@ input {
 
 .form-control:focus {
     box-shadow: none;
-    border-color:rgb(23, 68, 84) ;
+    border-color: rgb(23, 68, 84);
     color: black;
     background-color: whitesmoke;
-                                        /* ----------> input Focus  */
+    /* ----------> input Focus  */
 
 }
 

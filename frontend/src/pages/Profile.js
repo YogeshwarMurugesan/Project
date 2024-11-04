@@ -25,7 +25,7 @@ const Profile = () => {
     const fetchLeave = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/profile/${user?.email || user?._id}`);
-        const leaveData =await response.data
+        const leaveData = await response.data
 
         // console.log(`${user?.email || user?._id}`)
 
@@ -213,12 +213,11 @@ const Profile = () => {
         <div className="row mt-5 border p-5">
           <div className="col">
 
-            <table className="table table-striped">
+            <table className="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
                   <th>NO</th>
                   <th>Leave Date</th>
-                  <th>No of Leave Days</th>
                   <th>Leave Type</th>
                 </tr>
               </thead>
@@ -227,13 +226,12 @@ const Profile = () => {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{new Date(day.startDate).toLocaleDateString()}</td>
-                    <td>{Math.ceil((new Date(day.endDate) - new Date(day.startDate)) / (1000 * 3600 * 24) + 1)}</td>
                     <td>{day.leaveType}</td>
                   </tr>
                 ))}
               </tbody>
-
             </table>
+
 
           </div>
         </div>

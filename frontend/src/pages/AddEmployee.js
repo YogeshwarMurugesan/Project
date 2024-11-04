@@ -17,24 +17,33 @@ const AddEmployee = () => {
       <h1 className='text-center mb-3 heading'>Add New Employee</h1>
 
       <div className="-page container showpices">
-        <ul>
-          <button className='btn btn-success' id={active === 'personal' ? 'dark' : ''} onClick={() => handleClick('personal')}>Personal Information</button>
-        </ul>
-        <ul>
-          <button className='btn btn-success' id={active === 'job' ? 'dark' : ''} onClick={() => handleClick('job')}>Job Information</button>
-        </ul>
-        <ul>
-          <button className='btn btn-success' id={active === 'address' ? 'dark' : ''} onClick={() => handleClick('address')}>Address Information</button>
-        </ul>
+        <div className="row">
+          <div className="col col-lg-4 col-md-6 col-sm-12">
+            <button className='btn btn-success' id={active === 'personal' ? 'dark' : ''} onClick={() => handleClick('personal')}>
+              Personal Information
+            </button>
+          </div>
+          <div className="col col-lg-4 col-md-6 col-sm-12">
+            <button className='btn btn-success' id={active === 'job' ? 'dark' : ''} onClick={() => handleClick('job')}>
+              Job Information
+            </button>
+          </div>
+          <div className="col col-lg-4 col-md-6 col-sm-12">
+            <button className='btn btn-success' id={active === 'address' ? 'dark' : ''} onClick={() => handleClick('address')}>
+              Address Information
+            </button>
+          </div>
+        </div>
       </div>
+
 
       <div className='container custom-box mt-2 p-5'>
         <form className='form' onSubmit={handleSubmit}>
           {/* Personal Information Section */}
           {active === 'personal' && (
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }} 
-              animate={{ opacity: 1, y: 0 }} 
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
@@ -85,9 +94,9 @@ const AddEmployee = () => {
           )}
 
           {active === 'job' && (
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }} 
-              animate={{ opacity: 1, y: 0 }} 
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
@@ -132,9 +141,9 @@ const AddEmployee = () => {
           )}
 
           {active === 'address' && (
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }} 
-              animate={{ opacity: 1, y: 0 }} 
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
