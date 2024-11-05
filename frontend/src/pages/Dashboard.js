@@ -6,6 +6,8 @@ import { useAuth } from '../context/authcontext';
 import axios from 'axios'; // Make sure axios is imported correctly
 import './Dashboard.css'
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion'; // Import the motion component
+
 
 const localizer = momentLocalizer(moment);
 
@@ -18,7 +20,7 @@ const SmallCalendar = () => {
 
     const [employee, setEmployee] = useState([])
     const [leaveDays, setLeaveDays] = useState([])
-    const [leaveBalance, setLeaveBalance] = useState(2);
+    const [leaveBalance, setLeaveBalance] = useState(24);
     const [upcomingEvents, setUpcomingEvents] = useState({ birthdays: [], joiningAnniversaries: [] });
 
 
@@ -122,7 +124,7 @@ const SmallCalendar = () => {
             allDay: true
         }
     ];
-    
+
     return (
 
         <>
@@ -131,19 +133,33 @@ const SmallCalendar = () => {
                 <div className="row">
                     <div className="col">
                         <div className="card" >
-                            <div className="card-body">
-                                <h5 className="card-title">Total Employees : {employee.length}</h5>
-                                <a href="#" className="btn " onClick={() => { navigate('/Employees') }}>See Employee Details</a>
-                            </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.7 }} // Increased duration to 1 second
+                            >
+                                <div className="card-body">
+                                    <h5 className="card-title">Total Employees : {employee.length}</h5>
+                                    <a href="#" className="btn " onClick={() => { navigate('/Employees') }}>See Employee Details</a>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
 
                     <div className="col">
                         <div className="card" >
-                            <div className="card-body">
-                                <h5 className="card-title">Leave  Balance : {leaveBalance}</h5>
-                                <a href="#" className="btn " onClick={() => { navigate('/Profile') }} >See Leave Details Details</a>
-                            </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.7 }} // Increased duration to 1 second
+                            >
+                                <div className="card-body">
+                                    <h5 className="card-title">Leave  Balance : {leaveBalance}</h5>
+                                    <a href="#" className="btn " onClick={() => { navigate('/Profile') }} >See Leave Details Details</a>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
 
@@ -154,36 +170,51 @@ const SmallCalendar = () => {
 
                     <div className="col border me-2 eventBox">
 
-                        <div className="birthday">
-                            <h4 className='mt-2'>Birthdays:  </h4>
-                            <span className=''>
-                                {upcomingEvents.birthdays.map((event, index) => (
-                                    <h6 className='mt-2 color-dark' key={index}>{new Date(event.dob).toLocaleDateString()} {event.name}</h6>
-                                ))}
-                            </span>
-                        </div>
-                        <hr />
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.7 }} // Increased duration to 1 second
+                        >
 
-                        <div className="joiningDay">
-                            <h4 className='mt-2'>Joining Anniversary:</h4>
-                            <span>
-                                {upcomingEvents.joiningAnniversaries.map((event, index) => (
-                                    <div key={index}>{new Date(event.doj).toLocaleDateString()} {event.name}</div>
-                                ))}
-                            </span>
-                        </div>
+                            <div className="birthday">
+                                <h4 className='mt-2'>Birthdays:  </h4>
+                                <span className=''>
+                                    {upcomingEvents.birthdays.map((event, index) => (
+                                        <h6 className='mt-2 color-dark' key={index}>{new Date(event.dob).toLocaleDateString()} {event.name}</h6>
+                                    ))}
+                                </span>
+                            </div>
+                            <hr />
+
+                            <div className="joiningDay">
+                                <h4 className='mt-2'>Joining Anniversary:</h4>
+                                <span>
+                                    {upcomingEvents.joiningAnniversaries.map((event, index) => (
+                                        <div key={index}>{new Date(event.doj).toLocaleDateString()} {event.name}</div>
+                                    ))}
+                                </span>
+                            </div>
+                        </motion.div>
 
 
                     </div>
 
                     <div className="col border calbox">
-                        <Calendar
-                            localizer={localizer}
-                            events={calendarEvents}
-                            startAccessor="start"
-                            endAccessor="end"
-                            style={{ height: 500 }}
-                        />
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.7 }} // Increased duration to 1 second
+                        >
+                            <Calendar
+                                localizer={localizer}
+                                events={calendarEvents}
+                                startAccessor="start"
+                                endAccessor="end"
+                                style={{ height: 500 }}
+                            />
+                        </motion.div>
                     </div>
                 </div>
 

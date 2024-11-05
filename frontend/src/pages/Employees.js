@@ -32,7 +32,7 @@ const Employees = () => {
                                 style={{ width: 'auto' }}
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                transition={{ duration: 0.3, delay: index * 0.1 }}
                             >
                                 <div className="card-body">
                                     <div className="row">

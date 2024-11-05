@@ -13,7 +13,7 @@ const Profile = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [leaveType, setLeaveType] = useState('');
-  const [leaveBalance, setLeaveBalance] = useState(2);
+  const [leaveBalance, setLeaveBalance] = useState(24);
   const [leaveDays, setLeaveDays] = useState([]);
   const [events, setEvents] = useState([]);
 
