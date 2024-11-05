@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useAuth } from '../context/authcontext';
 import axios from 'axios'; // Make sure axios is imported correctly
 import './Dashboard.css'
 import { useNavigate } from 'react-router-dom';
 
+const localizer = momentLocalizer(moment);
 
 const SmallCalendar = () => {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -17,7 +19,7 @@ const SmallCalendar = () => {
     const [employee, setEmployee] = useState([])
     const [leaveDays, setLeaveDays] = useState([])
     const [leaveBalance, setLeaveBalance] = useState(2);
-    const [upcomingEvents, setUpcomingEvents] = useState([]);
+    const [upcomingEvents, setUpcomingEvents] = useState({ birthdays: [], joiningAnniversaries: [] });
 
 
     useEffect(() => {
@@ -64,21 +66,18 @@ const SmallCalendar = () => {
 
                 const currentMonth = new Date().getMonth() + 1;
 
-                const events = employees.filter(employee => {
+
+                const birthdays = employees.filter(employee => {
                     const birthDate = new Date(employee.dob);
-                    const joiningDate = new Date(employee.doj);
-
-                console.log(events)
-
-
-                    return birthDate.getMonth() === currentMonth || joiningDate.getMonth() === currentMonth;
+                    return birthDate.getMonth() + 1 === currentMonth;
                 });
 
 
-                const birthdays = events.filter(event => new Date(event.dob).getMonth()  === currentMonth);
-                const joiningAnniversaries = events.filter(event => new Date(event.doj).getMonth() === currentMonth);
-
-
+                const joiningAnniversaries = employees.filter(employee => {
+                    const joiningDate = new Date(employee.doj);
+                    const birthDate = new Date(employee.dob);
+                    return joiningDate.getMonth() + 1 === currentMonth && birthDate.getMonth() + 1 !== currentMonth;
+                });
 
                 setUpcomingEvents({ birthdays, joiningAnniversaries });
 
@@ -91,29 +90,39 @@ const SmallCalendar = () => {
     }, []);
 
 
+
     if (loading) {
         return (
             <h1>Loading...</h1>
         )
     }
-    const holidays = [
-        new Date(2024, 0, 26),   // Republic Day (January 26)
-        new Date(2024, 3, 10),   // Ugadi (April 10)
-        new Date(2024, 3, 14),   // Dr. Ambedkar Jayanti (April 14)
-        new Date(2024, 3, 17),   // Ram Navami (April 17)
-        new Date(2024, 3, 21),   // Mahavir Jayanti (April 21)
-        new Date(2024, 3, 22),   // Good Friday (April 22)
-        new Date(2024, 4, 1),    // May Day / Labour Day (May 1)
-        new Date(2024, 7, 15),   // Independence Day (August 15)
-        new Date(2024, 8, 16),   // Ganesh Chaturthi (September 16)
-        new Date(2024, 9, 2),    // Mahatma Gandhi Jayanti (October 2)
-        new Date(2024, 9, 11),   // Vijaya Dashami (October 11)
-        new Date(2024, 9, 20),   // Eid-e-Milad (October 20)
-        new Date(2024, 10, 1),   // Diwali (November 1)
-        new Date(2024, 10, 3),   // Bhai Dooj (November 3)
-        new Date(2024, 10, 15),  // Guru Nanak Jayanti (November 15)
-        new Date(2024, 11, 25)   // Christmas (December 25)
-    ]
+    const calendarEvents = [
+        {
+            title: 'New Year\'s Day',
+            start: new Date(2024, 0, 1), // January 1, 2024
+            end: new Date(2024, 0, 1),
+            allDay: true
+        },
+        {
+            title: 'Independence Day',
+            start: new Date(2024, 6, 4), // July 4, 2024
+            end: new Date(2024, 6, 4),
+            allDay: true
+        },
+        {
+            title: 'Thanksgiving Day',
+            start: new Date(2024, 10, 28), // November 28, 2024 (Fourth Thursday in November)
+            end: new Date(2024, 10, 28),
+            allDay: true
+        },
+        {
+            title: 'Christmas Day',
+            start: new Date(2024, 11, 25), // December 25, 2024
+            end: new Date(2024, 11, 25),
+            allDay: true
+        }
+    ];
+    
     return (
 
         <>
@@ -141,42 +150,39 @@ const SmallCalendar = () => {
                 </div>
 
                 <div className="row">
-                    <h1 className='text-center mt-5'>Upcoming Events</h1>
+                    <h1 className='text-center mt-5 heading'>Upcoming Events</h1>
 
-                    <div className="col border me-2">
+                    <div className="col border me-2 eventBox">
 
                         <div className="birthday">
-                            <h1 className='mt-2'>Birthdays:</h1>
-                            <span>
+                            <h4 className='mt-2'>Birthdays:  </h4>
+                            <span className=''>
                                 {upcomingEvents.birthdays.map((event, index) => (
-                                    <div key={index}>{new Date(event.dob).toLocaleDateString()} {event.name}
-
-                                    </div>
+                                    <h6 className='mt-2 color-dark' key={index}>{new Date(event.dob).toLocaleDateString()} {event.name}</h6>
                                 ))}
                             </span>
                         </div>
-
+                        <hr />
 
                         <div className="joiningDay">
-                            <h1 className='mt-2'>Joining Anniversary:</h1>
+                            <h4 className='mt-2'>Joining Anniversary:</h4>
                             <span>
                                 {upcomingEvents.joiningAnniversaries.map((event, index) => (
-                                    <div key={index}>{new Date(event.doj).toLocaleDateString()} {event.name}
-
-                                    </div>
+                                    <div key={index}>{new Date(event.doj).toLocaleDateString()} {event.name}</div>
                                 ))}
                             </span>
                         </div>
+
 
                     </div>
 
-                    <div className="col border">
-                        <DatePicker
-                            selected={selectedDate}
-                            onChange={(date) => setSelectedDate(date)}
-                            inline
-                            highlightDates={holidays}
-                            dayClassName={(date) => date.getDay() === 0 ? 'highlight-sunday' : undefined}
+                    <div className="col border calbox">
+                        <Calendar
+                            localizer={localizer}
+                            events={calendarEvents}
+                            startAccessor="start"
+                            endAccessor="end"
+                            style={{ height: 500 }}
                         />
                     </div>
                 </div>
