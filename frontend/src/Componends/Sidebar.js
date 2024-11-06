@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Sidebar.css';
 import { sideBarData } from './SidebarData';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useAsyncError } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
@@ -10,12 +10,18 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 
 const Sidebar = () => {
-    const { user,logOut, loading } = useAuth();
+    const { user, logOut, loading } = useAuth();
     const [userName, setUserName] = useState('');
     const [userDetails, setUserDetails] = useState(null);
     const [activeLink, setActiveLink] = useState(window.location.pathname);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const navigate = useNavigate();
+
+    const [passwordValues, setPasswordValues] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    })
 
     useEffect(() => {
         const fetchUserName = async () => {
@@ -53,13 +59,34 @@ const Sidebar = () => {
         }
     };
 
-    const handleLogOut = ()=>{
+    const handleLogOut = () => {
         navigate('/')
         logOut()
     }
 
-    if(loading){
+    if (loading) {
         return <h1>Loading....</h1>
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setPasswordValues((prevValue) => ({
+            ...prevValue,
+            [name]: value
+        })
+
+        )
+    }
+    console.log(passwordValues)
+
+    const handleChangePassword = () => {
+        axios.put(`http://localhost:3001/Dashboard/${user.email}`, passwordValues)
+            .then((result) => {
+                alert('Password Updated Success Fully')
+            }).catch((err) => {
+                console.error('Error changing password:', error);
+                alert('Failed to change password');
+            });
     }
 
     return (
@@ -69,7 +96,7 @@ const Sidebar = () => {
                     ☰
                 </button>
 
-                <div className="nav-title">                    
+                <div className="nav-title">
                     <span > Welcome! {user.role === 'admin' ? user.name : userName}</span>
                     <Link onClick={handleProfile} className='navicon' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <PersonIcon />
@@ -99,16 +126,50 @@ const Sidebar = () => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary w-100" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-danger w-100" data-bs-dismiss="modal" onClick={handleLogOut} ><LogoutIcon/> LogOut</button>
+                            <button type="button" className="btn btn-danger w-100" data-bs-dismiss="modal" onClick={handleLogOut} ><LogoutIcon /> LogOut</button>
+                            <button type="button" className="btn btn-success w-100 navicon" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id='content' className= {`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+            <div className="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="changePasswordLabel">Change Password</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            {/* Add your form or content for changing the password here */}
+                            <form>
+                                <div className="mb-3">
+                                    <label htmlFor="currentPassword" className="form-label" >Current Password</label>
+                                    <input type="password" className="form-control" id="currentPassword" name='currentPassword' value={passwordValues.currentPassword} onChange={handleChange} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="newPassword" className="form-label" >New Password</label>
+                                    <input type="password" className="form-control" id="newPassword" name='newPassword' value={passwordValues.newPassword} onChange={handleChange} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="confirmPassword" className="form-label" >Confirm Password</label>
+                                    <input type="password" className="form-control" id="confirmPassword" name='confirmPassword' value={passwordValues.confirmPassword} onChange={handleChange} />
+                                </div>
+                                <button type="submit" className="btn btn-primary w-100" onClick={handleChangePassword}>Submit</button>
+                            </form>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary w-100" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id='content' className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
                 <ul>
                     {sideBarData.map((data, ind) => (
-                        data.access.includes(user.role) && 
+                        data.access.includes(user.role) &&
                         <li
                             key={ind}
                             id={activeLink === data.link ? "active" : ""}
@@ -120,16 +181,14 @@ const Sidebar = () => {
                     ))}
 
                 </ul>
-                    <button className='btn btn-secondary w-100 p-4 mb-2' onClick={handleLogOut}><LogoutIcon/> Log Out</button>
+                <button className='btn btn-secondary w-100 p-4 mb-2' onClick={handleLogOut}><LogoutIcon /> Log Out</button>
             </div>
-
-
 
             <div className="main-content">
                 <Outlet />
             </div>
         </>
-    );  
+    );
 };
 
 export default Sidebar;

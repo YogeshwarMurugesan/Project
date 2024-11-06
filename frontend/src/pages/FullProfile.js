@@ -31,9 +31,6 @@ const FullProfile = () => {
 
     // while edit the filed it save old fields 
     const handleChange = (e) => {
-        console.log(e.target.value)
-        console.log(e.target.name)
-
         const { name, value } = e.target
 
         setEmployee((prevEmp) => ({

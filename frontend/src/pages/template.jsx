@@ -1,224 +1,168 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import './Profile.css';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import './Sidebar.css';
+import { sideBarData } from './SidebarData';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import PersonIcon from '@mui/icons-material/Person';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/authcontext';
+import LogoutIcon from '@mui/icons-material/Logout';
+import axios from 'axios';
 
-const localizer = momentLocalizer(moment);
+const Sidebar = () => {
+    const { user, logOut, loading } = useAuth();
+    const [userName, setUserName] = useState('');
+    const [userDetails, setUserDetails] = useState(null);
+    const [activeLink, setActiveLink] = useState(window.location.pathname);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const navigate = useNavigate();
 
-const Profile = () => {
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [leaveType, setLeaveType] = useState('');
-  const [leaveBalance, setLeaveBalance] = useState(2);
-  const [leaveDays, setLeaveDays] = useState([]);
-  const [events, setEvents] = useState([]);
+    useEffect(() => {
+        const fetchUserName = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/Dashboard/${user.email}`);
+                if (response.data) {
+                    setUserName(response.data.name);
+                }
 
-  const { user } = useAuth();
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        };
 
-  useEffect(() => {
-    const fetchLeave = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/profile/${user?.email || user?._id}`);
-        const leaveData = response.data;
+        fetchUserName();
+    }, [user]);
 
-        setLeaveDays(leaveData);
-        const totalLeaveTaken = leaveData.reduce((acc, leave) => {
-          const leaveDuration = Math.ceil((new Date(leave.endDate) - new Date(leave.startDate)) / (1000 * 3600 * 24) + 1);
-          return acc + (leave.leaveType === 'halfDay' ? 0.5 : leaveDuration);
-        }, 0);
-
-        setLeaveBalance((prevBalance) => prevBalance - totalLeaveTaken);
-
-        const leaveEvents = response.data.map((leave) => ({
-          title: `L-${leave.leaveType}`,
-          start: new Date(leave.startDate),
-          end: new Date(leave.endDate),
-          allDay: true,
-        }));
-        setEvents(leaveEvents);
-      } catch (error) {
-        console.error("Error fetching leave data:", error);
-      }
+    const handleLink = (link) => {
+        setActiveLink(link);
+        navigate(link);
     };
 
-    if (user?.email || user?._id) {
-      fetchLeave();
-    }
-  }, [user]);
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
 
-  const handleChane = (e) => {
-    setStartDate(e.target.value);
-  };
-
-  const handleChangeEnd = (e) => {
-    setEndDate(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const details = {
-        startDate,
-        endDate,
-        leaveType,
-        user: user?.name || user?._id,
-        email: user?.email || user?._id,
-      };
-
-      await axios.post('http://localhost:3001/profile', details);
-
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      const timeDifference = end - start;
-      const dayDifference = timeDifference / (1000 * 3600 * 24) + 1;
-
-      let finalDeduction = dayDifference;
-
-      if (dayDifference === 1) {
-        finalDeduction = leaveType === 'fullDay' ? 1 : 0.5;
-      }
-
-      if (finalDeduction <= leaveBalance) {
-        setLeaveBalance((prevBalance) => prevBalance - finalDeduction);
-        const leaveDates = [];
-        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-          leaveDates.push(new Date(d));
+    const handleProfile = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3001/Dashboard/${user.email}`);
+            if (response.data) {
+                setUserDetails(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching user details:', error);
         }
-        setLeaveDays((prevDays) => [...prevDays, ...leaveDates]);
+    };
 
-        // Add each leave date to events for the calendar
-        const newEvents = leaveDates.map((date) => ({
-          title: `L- ${leaveType}`,
-          start: new Date(date),
-          end: new Date(date),
-          allDay: true,
-        }));
-        setEvents((prevEvents) => [...prevEvents, ...newEvents]);
-      }
-    } catch (error) {
-      console.error("Error submitting leave:", error);
+    const handleLogOut = () => {
+        navigate('/')
+        logOut()
     }
-  };
 
-  const hadleLeaveType = (e) => {
-    setLeaveType(e.target.value);
-  };
+    if (loading) {
+        return <h1>Loading....</h1>
+    }
 
-  return (
-    <div className="container profile-page">
-      <motion.div 
-        className="row"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="heading text-center">Apply Leave</h1>
-        <div className="col leaveBox-container">
-          <h2 className='heading text-center'>Leave Form</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="inputs Leave-inputs ">
-              <label htmlFor="" className="form-label" id='heading2'>Starts From</label>
-              <input
-                type="date"
-                className="form-control"
-                name="startDate"
-                value={startDate}
-                onChange={handleChane}
-              />
+    return (
+        <>
+            <nav className="navbar container-fluid w-100">
+                <button className="toggle-button" onClick={toggleSidebar}>
+                    ☰
+                </button>
+
+                <div className="nav-title">
+                    <span> Welcome! {user.role === 'admin' ? user.name : userName}</span>
+                    <Link onClick={handleProfile} className='navicon' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <PersonIcon />
+                    </Link>
+                </div>
+            </nav>
+
+            {/* Existing Profile Modal */}
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="staticBackdropLabel">{userName}'s Details</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            {userDetails ? (
+                                <div>
+                                    <p><strong>Name:</strong> {userDetails.name}</p>
+                                    <p><strong>Email:</strong> {userDetails.email}</p>
+                                    <p><strong>Date of Birth:</strong> {userDetails.dob}</p>
+                                    <p><strong>Role:</strong> {userDetails.jobTitle}</p>
+                                    <p><strong>Working Location:</strong> {userDetails.workLocation}</p>
+                                </div>
+                            ) : (
+                                <p>Loading user details...</p>
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary w-100" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-danger w-100" data-bs-dismiss="modal" onClick={handleLogOut}><LogoutIcon /> LogOut</button>
+                            {/* Link to open Change Password Modal */}
+                            <button type="button" className="btn btn-success w-100 navicon" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div className="inputs Leave-inputs mt-3">
-              <label htmlFor="" className="form-label" id='heading2'>End Date</label>
-              <input
-                type="date"
-                className="form-control"
-                name="endDate"
-                value={endDate}
-                onChange={handleChangeEnd}
-              />
+            {/* New Change Password Modal */}
+            <div className="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="changePasswordLabel">Change Password</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            {/* Add your form or content for changing the password here */}
+                            <form>
+                                <div className="mb-3">
+                                    <label htmlFor="currentPassword" className="form-label">Current Password</label>
+                                    <input type="password" className="form-control" id="currentPassword" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="newPassword" className="form-label">New Password</label>
+                                    <input type="password" className="form-control" id="newPassword" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                                    <input type="password" className="form-control" id="confirmPassword" />
+                                </div>
+                                <button type="submit" className="btn btn-primary w-100">Submit</button>
+                            </form>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary w-100" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {startDate === endDate && startDate !== '' ? (
-              <div className="inputs Leave-inputs mt-3">
-                <label htmlFor="leaveType" className="form-label" id='heading2'>Day</label>
-                <select
-                  id="leaveType1"
-                  className="form-control"
-                  value={leaveType}
-                  onChange={hadleLeaveType}
-                >
-                  <option value="Select">Select</option>
-                  <option value="fullDay">Full Day</option>
-                  <option value="halfDay">Half Day</option>
-                </select>
-              </div>
-            ) : null}
-
-            <div className="inputs Leave-inputs mt-3">
-              <label htmlFor="leaveReason" className="form-label" id='heading2'>Type</label>
-              <select id="leaveReason" className="form-control">
-                <option value="sick">Sick Leave</option>
-                <option value="casual">Casual Leave</option>
-                <option value="other">Other</option>
-              </select>
+            <div id='content' className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+                <ul>
+                    {sideBarData.map((data, ind) => (
+                        data.access.includes(user.role) &&
+                        <li
+                            key={ind}
+                            id={activeLink === data.link ? "active" : ""}
+                            onClick={() => handleLink(data.link)}
+                        >
+                            <div className='icon'>{data.icon}</div>
+                            <div className='title'>{data.title}</div>
+                        </li>
+                    ))}
+                </ul>
+                <button className='btn btn-secondary w-100 p-4 mb-2' onClick={handleLogOut}><LogoutIcon /> Log Out</button>
             </div>
 
-            <button type="submit" className="btn btn-primary mt-3 ">Submit Leave</button>
-
-            <div className="balance mt-5">
-              <p>Leave Balance: {leaveBalance}</p>
+            <div className="main-content">
+                <Outlet />
             </div>
-          </form>
-        </div>
-
-        <div className="col">
-          <Calendar
-            className="calendar-container"
-            localizer={localizer}
-            events={events}
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: 500, marginTop: '20px' }}
-          />
-        </div>
-      </motion.div>
-
-      <motion.div 
-        className="row mt-5 border p-5"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="col">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>NO</th>
-                <th>Leave Date</th>
-                <th>No of Leave Days</th>
-                <th>Leave Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leaveDays.map((day, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{new Date(day.startDate).toLocaleDateString()}</td>
-                  <td>{Math.ceil((new Date(day.endDate) - new Date(day.startDate)) / (1000 * 3600 * 24) + 1)}</td>
-                  <td>{day.leaveType}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </motion.div>
-    </div>
-  );
+        </>
+    );
 };
 
-export default Profile;
+export default Sidebar;
