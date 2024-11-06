@@ -7,5 +7,7 @@ router.get('/Dashboard/:email', dashBoardController.findEmployee)
 
 router.get('/Dashboard' , dashBoardController.getEmployee)
 
+router.put('/Dashboard/:email', dashBoardController.updatePassword)
+
 
 module.exports = router

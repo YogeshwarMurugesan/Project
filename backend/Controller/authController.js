@@ -19,7 +19,9 @@ exports.register = async (req, res) => {
         if (findUser) {
             return res.status(409).json('User is already exists')
         }
-        await authModel.create({ name, email, password })
+        const hashedPassword = await bcrypt.hash(password, 10)
+
+        await authModel.create({ name, email, password : hashedPassword} )
         return res.status(201).json('User Added Successfully')
 
     } catch (error) {
@@ -34,18 +36,14 @@ exports.logIn = async (req, res) => {
     try {
 
         const findUser = await authModel.findOne({ email })
-        console.log(`findUser : ${findUser}`)
-
 
         if (!findUser) {
             return res.status(400).json({ error: 'Please Register' })
         }
 
-        const passwordMatch = bcrypt.compareSync(password, findUser.password)
-        console.log(passwordMatch)
-
-
-        if (passwordMatch) {
+        const passwordMatch =await bcrypt.compare(password, findUser.password)
+        
+        if (!passwordMatch) {
             return res.status(400).json({ error: 'Password Incorrect' })
         }
 
@@ -83,7 +81,9 @@ exports.createAdmin = async () => {
             return console.log('Adimin is alreay exists')
         }
 
-        await authModel.create({ name, email, password, role: 'admin' })
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        await authModel.create({ name, email, password : hashedPassword, role: 'admin' })
         console.log('admin created')
     } catch (error) {
         console.log(error)

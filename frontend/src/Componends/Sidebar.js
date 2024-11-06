@@ -36,7 +36,9 @@ const Sidebar = () => {
             }
         };
 
-        fetchUserName();
+        if (!loading) {
+            fetchUserName();
+        }
     }, [user]);
 
     const handleLink = (link) => {
@@ -79,11 +81,12 @@ const Sidebar = () => {
     }
     console.log(passwordValues)
 
-    const handleChangePassword = () => {
+    const handleChangePassword = (e) => {
+        e.preventDefault()
         axios.put(`http://localhost:3001/Dashboard/${user.email}`, passwordValues)
             .then((result) => {
                 alert('Password Updated Success Fully')
-            }).catch((err) => {
+            }).catch((error) => {
                 console.error('Error changing password:', error);
                 alert('Failed to change password');
             });

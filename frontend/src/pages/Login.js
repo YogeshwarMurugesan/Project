@@ -29,11 +29,12 @@ const Login = () => {
         try {
             const response = await axios.post('http://localhost:3001/Login', loginData)
             localStorage.setItem('token', response.data.token)            
-
             Login()
             navigate('/Dashboard')
         } catch (error) {
-            console.log('Login failed:', error);
+            alert(`Login failed: ${error.response?.data.error || 'error on server'}`)
+            
+            console.log(error)
         }
     }
 
