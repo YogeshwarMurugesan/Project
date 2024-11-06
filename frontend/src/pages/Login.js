@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
-    const { Login , logOut} = useAuth()
+    const { Login, logOut } = useAuth()
     const navigate = useNavigate()
     const [loginData, setLoginData] = useState({
         email: '',
@@ -28,11 +28,12 @@ const Login = () => {
         e.preventDefault()
         try {
             const response = await axios.post('http://localhost:3001/Login', loginData)
-            localStorage.setItem('token', response.config.data)
+            localStorage.setItem('token', response.data.token)            
+
             Login()
             navigate('/Dashboard')
         } catch (error) {
-            console.error('Login failed:', error);
+            console.log('Login failed:', error);
         }
     }
 

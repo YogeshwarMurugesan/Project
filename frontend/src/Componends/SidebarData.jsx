@@ -7,24 +7,28 @@ export const sideBarData = [
     {
         title: "Dashboard",
         icon: <DashboardIcon />,
-        link: "/Dashboard"
+        link: "/Dashboard",
+        access : ['user','admin']
     },
 
     {
         title: "Employees",
         icon: <PeopleAltIcon />,
-        link: "/Employees"
+        link: "/Employees",
+        access : ['user','admin']
     },
 
     {
         title: "Apply Leave",
         icon: <TimeToLeaveIcon />,
-        link: "/Profile"
+        link: "/Profile",
+        access : ['user','admin']
     },
 
     {
         title: "Add Empoloyee",
         icon: <AddIcon />,
-        link: "/api/addEmp"
+        link: "/api/addEmp",
+        access : ['admin']
     }    
 ] 

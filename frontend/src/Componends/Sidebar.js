@@ -10,7 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 
 const Sidebar = () => {
-    const { user,logOut } = useAuth();
+    const { user,logOut, loading } = useAuth();
     const [userName, setUserName] = useState('');
     const [userDetails, setUserDetails] = useState(null);
     const [activeLink, setActiveLink] = useState(window.location.pathname);
@@ -58,6 +58,10 @@ const Sidebar = () => {
         logOut()
     }
 
+    if(loading){
+        return <h1>Loading....</h1>
+    }
+
     return (
         <>
             <nav className="navbar container-fluid w-100">
@@ -65,8 +69,8 @@ const Sidebar = () => {
                     ☰
                 </button>
 
-                <div className="nav-title">
-                    <span > Welcome! {userName}</span>
+                <div className="nav-title">                    
+                    <span > Welcome! {user.role === 'admin' ? user.name : userName}</span>
                     <Link onClick={handleProfile} className='navicon' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <PersonIcon />
                     </Link>
@@ -104,6 +108,7 @@ const Sidebar = () => {
             <div id='content' className= {`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
                 <ul>
                     {sideBarData.map((data, ind) => (
+                        data.access.includes(user.role) && 
                         <li
                             key={ind}
                             id={activeLink === data.link ? "active" : ""}

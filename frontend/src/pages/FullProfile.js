@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './FullProfile.css'
+import { useAuth } from '../context/authcontext';
+
 
 const FullProfile = () => {
     const { email } = useParams();
     const [employee, setEmployee] = useState(null);
     const [isEditable, setIsisEditable] = useState(false)
     const navigate = useNavigate()
+    const { user } = useAuth();
+
 
 
     // View Employee
@@ -56,15 +60,15 @@ const FullProfile = () => {
             });
     }
 
-    const handleDelete = ()=>{
+    const handleDelete = () => {
         axios.delete(`http://localhost:3001/viewProfile/${email}`)
-        .then((result) => {
-            alert('User Deleted Success Fully')
-            setIsisEditable(false)
-            navigate('/Employees')
-        }).catch((err) => {
-            console.log(err)
-        });
+            .then((result) => {
+                alert('User Deleted Success Fully')
+                setIsisEditable(false)
+                navigate('/Employees')
+            }).catch((err) => {
+                console.log(err)
+            });
 
     }
 
@@ -308,23 +312,26 @@ const FullProfile = () => {
                 </tbody>
             </table>
 
-            <div className='mt-3'>
-                <button
-                    type='button'
-                    className='btn btn-success me-1'
-                    onClick={isEditable ? handleSave : handleEdit}
-                >
-                    {isEditable ? 'Save' : 'Edit'}
+            {user.role === 'admin' ?
+                <div className='mt-3'>
+                    <button
+                        type='button'
+                        className='btn btn-success me-1'
+                        onClick={isEditable ? handleSave : handleEdit}
+                    >
+                        {isEditable ? 'Save' : 'Edit'}
 
-                </button>
-                <button
-                    type='button'
-                    className='btn btn-danger'
-                    onClick={handleDelete}
-                >
-                    {isEditable ? 'Cancel' : 'Delete'}
-                </button>
-            </div>
+                    </button>
+                    <button
+                        type='button'
+                        className='btn btn-danger'
+                        onClick={handleDelete}
+                    >
+                        {isEditable ? 'Cancel' : 'Delete'}
+                    </button>
+                </div> : ''
+            }
+
 
         </div>
     );

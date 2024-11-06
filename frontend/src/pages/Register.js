@@ -74,6 +74,20 @@ const Register = () => {
                             <input type="password" name='password' className="form-control" placeholder="Password" value={registerData.password} onChange={handleSetName} />
                         </div>
 
+                        {/* <div className="input-container">
+                            <LockIcon className="input-icon" />
+                            <select
+                                name="role"
+                                className="form-control"
+                                value={registerData.role}
+                                onChange={handleSetName}
+                            >
+                                <option value="">Select Role</option>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div> */}
+
                         <button className="btn sign-up-btn w-100 mb-3">SIGN UP</button>
                         <p>Already have an account? <Link to="/Login" className="toggle-link" >Login</Link></p>
                     </form>
