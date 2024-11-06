@@ -116,11 +116,11 @@ exports.updateUser = async (req, res) => {
    }
 };
 
-exports.deleteEmployee = async (req,res) => {
+exports.deleteEmployee = async (req, res) => {
    try {
       const { email } = req.params
 
-      const findUser = await employeeSchema.findOneAndDelete({email})
+      const findUser = await employeeSchema.findOneAndDelete({ email })
 
       if (!findUser) {
          console.log('user is not found')

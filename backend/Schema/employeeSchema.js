@@ -14,14 +14,15 @@ const employeeSchema = new mongoose.Schema({
     phNo: { type: String, required: true },
     gender: { type: String, required: true },
     jobTitle: { type: String, required: true },
-    department: { type: String, required: true },
+    department: { type: String, required: true },   
     workLocation: { type: String, required: true },
     doj: { type: String, required: true },
     empType: { type: String, required: true },
     address: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
-    pinCode: { type: String, required: true }
+    pinCode: { type: String, required: true },
+    
 })
 
 module.exports = mongoose.model('Employee', employeeSchema)

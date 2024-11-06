@@ -6,6 +6,7 @@ const cors = require('cors')
 const authRouter = require('./Routes/authRouter')
 const dashboardRouter = require('./Routes/dashboardRouter')
 const leaveRouter = require('./Routes/leaveRouter')
+const {createAdmin} = require('./Controller/authController')
 const app = express()
 app.use(express.json()) 
 
@@ -22,6 +23,8 @@ app.use(empDetailsrouter)
 app.use(authRouter)
 app.use(leaveRouter)
 app.use(dashboardRouter)
+createAdmin()
+
 
 app.listen(PORT, ()=>{
     console.log('Port is listening on : '+ PORT)
