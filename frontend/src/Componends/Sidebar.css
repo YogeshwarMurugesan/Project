@@ -1,11 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* Navbar */
 .navbar {
     display: flex;
@@ -22,37 +14,33 @@
     z-index: 1000; /* Ensure it stays above other elements */
     height: 60px; /* Define the height */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    flex-wrap: nowrap; /* Ensure it doesn't wrap */
 }
 
-.navbar .navicon{
+.navbar .navicon {
     color: white;
-    /* background-color: red; */
-    /* font-size: 30px; */
     padding: 5px 10px;
     border-radius: 5px;
-    
 }
-.emptitle{
+
+.navbar .nav-title {
+    font-size: larger;
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-title span {
     color: whitesmoke;
-    margin-left: 250px;
 }
 
-.navicon svg { /* Assuming you're using an <i> tag for the icon */
-    font-size: 30px; /* Your desired size */
-    vertical-align: middle; /* Ensure icons are aligned in the middle */
-}
-
+/* Toggle Button */
 .toggle-button {
     background: none;
     border: none;
     color: white;
     font-size: 24px;
     cursor: pointer;
-}
-
-.nav-title {
-    font-size: larger;
-    margin-right: 50px;
 }
 
 /* Sidebar */
@@ -73,10 +61,6 @@
 
 .sidebar.open {
     transform: translateX(0);
-}
-
-.navbar span{
-    color: whitesmoke;
 }
 
 .sidebar li {
@@ -127,25 +111,77 @@ ul {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Adjust the navbar to make it more compact */
+    .navbar {
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: space-between;
+        padding: 10px 15px;
+    }
+
+    /* Ensure the nav-title spans correctly */
+    .nav-title {
+        flex: 1;
+        justify-content: flex-end;
+        margin-right: 0;
+    }
+
+    /* Adjust Sidebar Width */
     .sidebar {
         width: 200px;
-        height: calc(100vh - 60px); /* Maintain space for the navbar */
     }
+
+    /* Ensure the main content adjusts */
+    .main-content {
+        margin-left: 0;
+        padding-top: 80px; /* Keep the top padding to account for the navbar */
+    }
+
+    /* Adjust the Toggle Button for smaller screens */
+    .toggle-button {
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    /* Stack items in the navbar when in small screen */
+    .navbar .navicon {
+        font-size: 22px;
+    }
+
+    .navbar .nav-title span {
+        font-size: 14px; /* Adjust font size for smaller screen */
+    }
+
+    /* For better alignment, make sure sidebar content items are aligned properly */
+    .sidebar li {
+        font-size: 14px;
+    }
+
+    /* Improve the button style for smaller screens */
+    .btn-secondary {
+        padding: 10px;
+    }
+}
+
+/* Ensure full width sidebar when open on mobile */
+@media (max-width: 576px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .navbar {
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: space-between;
+        padding: 10px 15px;
+    }
+
+    .nav-title {
+        flex: 1;
+        justify-content: flex-end;
+        margin-right: 0;
+    }
+
 
     .main-content {
         margin-left: 0;
-        padding-top: 80px; /* Keep top padding for navbar space */
     }
-}
-
-
-#content{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#content .btn {
-    background-color: #1e596a;
-   color: whitesmoke;
 }

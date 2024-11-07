@@ -93,11 +93,11 @@ const SmallCalendar = () => {
 
 
 
-    if (loading) {
-        return (
-            <h1>Loading...</h1>
-        )
-    }
+    // if (loading) {
+    //     return (
+    //         <h1>Loading...</h1>
+    //     )
+    // }
     const calendarEvents = [
         {
             title: 'New Year\'s Day',
@@ -129,98 +129,89 @@ const SmallCalendar = () => {
 
         <>
             <div className="DashboardPage container mb-5">
-                <h1 className='heading text-center mb-4'>Dashboard</h1>
-                <div className="row">
-                    <div className="col">
-                        <div className="card" >
-                            <motion.div
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.7 }} // Increased duration to 1 second
-                            >
-                                <div className="card-body">
-                                    <h5 className="card-title">Total Employees : {employee.length}</h5>
-                                    <a href="#" className="btn " onClick={() => { navigate('/Employees') }}>See Employee Details</a>
-                                </div>
-                            </motion.div>
-                        </div>
+    <h1 className='heading text-center mb-4'>Dashboard</h1>
+    <div className="row">
+        <div className="col-lg-6 col-md-6 col-sm-12 mb-3">
+            <div className="card">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.7 }}
+                >
+                    <div className="card-body">
+                        <h5 className="card-title">Total Employees : {employee.length}</h5>
+                        <a href="#" className="btn" onClick={() => { navigate('/Employees') }}>See Employee Details</a>
                     </div>
-
-                    <div className="col">
-                        <div className="card" >
-                            <motion.div
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.7 }} // Increased duration to 1 second
-                            >
-                                <div className="card-body">
-                                    <h5 className="card-title">Leave  Balance : {leaveBalance}</h5>
-                                    <a href="#" className="btn " onClick={() => { navigate('/Profile') }} >See Leave Details Details</a>
-                                </div>
-                            </motion.div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="row">
-                    <h1 className='text-center mt-5 heading'>Upcoming Events</h1>
-
-                    <div className="col border me-2 eventBox">
-
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.7 }} // Increased duration to 1 second
-                        >
-
-                            <div className="birthday">
-                                <h4 className='mt-2'>Birthdays:  </h4>
-                                <span className=''>
-                                    {upcomingEvents.birthdays.map((event, index) => (
-                                        <h6 className='mt-2 color-dark' key={index}>{new Date(event.dob).toLocaleDateString()} {event.name}</h6>
-                                    ))}
-                                </span>
-                            </div>
-                            <hr />
-
-                            <div className="joiningDay">
-                                <h4 className='mt-2'>Joining Anniversary:</h4>
-                                <span>
-                                    {upcomingEvents.joiningAnniversaries.map((event, index) => (
-                                        <div key={index}>{new Date(event.doj).toLocaleDateString()} {event.name}</div>
-                                    ))}
-                                </span>
-                            </div>
-                        </motion.div>
-
-
-                    </div>
-
-                    <div className="col border calbox">
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.7 }} // Increased duration to 1 second
-                        >
-                            <Calendar
-                                localizer={localizer}
-                                events={calendarEvents}
-                                startAccessor="start"
-                                endAccessor="end"
-                                style={{ height: 500 }}
-                            />
-                        </motion.div>
-                    </div>
-                </div>
-
-
-
+                </motion.div>
             </div>
+        </div>
+
+        <div className="col-lg-6 col-md-6 col-sm-12 mb-3">
+            <div className="card">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.7 }}
+                >
+                    <div className="card-body">
+                        <h5 className="card-title">Leave  Balance : {leaveBalance}</h5>
+                        <a href="#" className="btn" onClick={() => { navigate('/Profile') }} >See Leave Details</a>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
+    </div>
+
+    <div className="row">
+        <h1 className='text-center mt-5 heading'>Upcoming Events</h1>
+        <div className="col-lg-6 col-md-12 mb-3 eventBox">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.7 }}
+            >
+                <div className="birthday">
+                    <h4 className='mt-2'>Birthdays:  </h4>
+                    <span>
+                        {upcomingEvents.birthdays.map((event, index) => (
+                            <h6 className='mt-2 color-dark' key={index}>{new Date(event.dob).toLocaleDateString()} {event.name}</h6>
+                        ))}
+                    </span>
+                </div>
+                <hr />
+                <div className="joiningDay">
+                    <h4 className='mt-2'>Joining Anniversary:</h4>
+                    <span>
+                        {upcomingEvents.joiningAnniversaries.map((event, index) => (
+                            <div key={index}>{new Date(event.doj).toLocaleDateString()} {event.name}</div>
+                        ))}
+                    </span>
+                </div>
+            </motion.div>
+        </div>
+
+        <div className="col-lg-6 col-md-12 mb-3 calbox">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.7 }}
+            >
+                <Calendar
+                    localizer={localizer}
+                    events={calendarEvents}
+                    startAccessor="start"
+                    endAccessor="end"
+                    style={{ height: 500 }}
+                />
+            </motion.div>
+        </div>
+    </div>
+</div>
+
         </>
     );
 };

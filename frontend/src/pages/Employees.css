@@ -16,6 +16,10 @@ h1, h2 {
     color: #333;
 }
 
+.employees-page .container {
+    padding: 0px;
+}
+
 /* Card Design */
 .employees-page .card {
     background-color: #fff;

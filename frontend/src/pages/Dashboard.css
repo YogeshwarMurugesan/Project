@@ -13,16 +13,15 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    
 }
 
-.joiningDay{
+.joiningDay {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-.eventBox{
+.eventBox {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,16 +29,43 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-.DashboardPage span{
+.DashboardPage span {
     color: rgb(17, 124, 124);
 }
 
-.calbox{
+.calbox {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     padding: 20px;
 }
 
-.DashboardPage .card{
+.DashboardPage .card {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Add responsiveness for small screens */
+@media (max-width: 767px) {
+    .DashboardPage .row {
+        flex-direction: column;
+    }
+
+    .DashboardPage .col {
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+
+    .calbox, .eventBox {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .DashboardPage .card-body {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .DashboardPage .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

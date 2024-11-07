@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import { Auth } from './context/authcontext';
+import ProtectedRoutes from './pages/utils/ProtectedRoutes';
 
 
 
@@ -21,8 +22,9 @@ function App() {
           <Routes>
             <Route path='/' element={<Register />} />
             <Route path='/Login' element={<Login />} />
-            <Route element={<Sidebar />}>
-              <Route path="api/addEmp" element={<AddEmployee />} />
+
+            <Route element={<ProtectedRoutes allowedRoutes = {['admin', 'user']} > <Sidebar /> </ProtectedRoutes>}>
+              <Route path="api/addEmp" element={<ProtectedRoutes allowedRoutes = {['admin']}> <AddEmployee /> </ProtectedRoutes>} />
               <Route path="/Employees" element={<Employees />} />
               <Route path="/Profile" element={<Profile />} />
               <Route path="/viewProfile/:email" element={<FullProfile />} /> {/* Add the ViewProfile route */}

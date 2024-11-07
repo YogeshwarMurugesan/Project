@@ -20,7 +20,7 @@ const Employees = () => {
     }, []);
 
     return (
-        <div className='employees-page container'>
+        <div className='employees-page container p-0'>
             <h1 className='text-center heading'>Employees Details</h1>
             <h2 className='text-center mb-5'>{employees.length} Employees</h2>
             <div className="container">
